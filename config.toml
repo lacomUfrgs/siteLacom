@@ -3,7 +3,7 @@
 # post = "/:year/:month/:day/:slug/"
 #baseURL = "https://example.com" 
 #baseURL = "~/siteLacom/static"
-baseURL = "/"
+baseURL = ""
 disqusShortname = "lacom-ufrgs"
 #uglyURLs = true
 #baseURL = "/"
@@ -15,7 +15,7 @@ disqusShortname = "lacom-ufrgs"
 #title = "LACOM Laboratório de Comunicações - UFRGS"
 theme = "hugo-theme-techdoc"
 
-#hasCJKLanguage = true
+#hasCJKLanguage = trueee
 metaDataFormat = "yaml"
 
 defaultContentLanguage = "en"
