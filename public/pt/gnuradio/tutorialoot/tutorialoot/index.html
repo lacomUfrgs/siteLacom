@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html>
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<title>Tutorial Criação de módulos OOT (out-of-tree) - Laboratório de Redes e Telecom LACOM  -  UFRGS</title>
+<meta name="description" content=" THIS IS THE DESCRIPTION">
+<meta name="generator" content="Hugo 0.70.0" />
+<link href="/index.xml" rel="alternate" type="application/rss+xml">
+<link rel="canonical" href="/pt/gnuradio/tutorialoot/tutorialoot/">
+<link rel="stylesheet" href="/css/theme.min.css">
+<script src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
+<link rel="stylesheet" href="/css/chroma.min.css">
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.4.1/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery.easing@1.4.1/jquery.easing.min.js"></script>
+<script src="/js/bundle.js"></script><style>
+:root {}
+</style>
+<meta property="og:title" content="Tutorial Criação de módulos OOT (out-of-tree)" />
+<meta property="og:description" content=" THIS IS THE DESCRIPTION" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="/pt/gnuradio/tutorialoot/tutorialoot/" />
+<meta property="og:image" content="/images/og-image.png"/>
+<meta property="article:published_time" content="2020-05-14T23:42:18-03:00" />
+<meta property="article:modified_time" content="2020-05-14T23:42:18-03:00" /><meta property="og:site_name" content="Laboratório de Redes e Telecom LACOM  -  UFRGS" />
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="/images/og-image.png"/>
+
+<meta name="twitter:title" content="Tutorial Criação de módulos OOT (out-of-tree)"/>
+<meta name="twitter:description" content=" THIS IS THE DESCRIPTION"/>
+<meta itemprop="name" content="Tutorial Criação de módulos OOT (out-of-tree)">
+<meta itemprop="description" content=" THIS IS THE DESCRIPTION">
+<meta itemprop="datePublished" content="2020-05-14T23:42:18-03:00" />
+<meta itemprop="dateModified" content="2020-05-14T23:42:18-03:00" />
+<meta itemprop="wordCount" content="1490">
+<meta itemprop="image" content="/images/og-image.png"/>
+
+
+
+<meta itemprop="keywords" content="tutorial OOT,gnuradio,out-of-tree," /> 
+
+
+</head>
+<body><div class="container"><header>
+<h1>Laboratório de Redes e Telecom LACOM  -  UFRGS</h1>
+<a href="https://github.com/thingsym/hugo-theme-techdoc" class="github"><i class="fab fa-github"></i></a>
+
+
+
+<p class="description"> Repositório de Documentos Técnicos  &nbsp;&nbsp;
+    
+
+
+</header>
+<div class="global-menu">
+<nav>
+<ul>
+<li><a href="/pt/home-pt/">Home</a></li>
+<li><a href="https://twitter.com/thingsym">Twitter</a></li><li class="parent"><a href="">Tutoriais<i class="fas fa-angle-right"></i></a>
+<ul class="sub-menu">
+<li class="child"><a href="/pt/post/creating-a-new-theme/">Criando um novo tema</a></li>
+<li class="child"><a href="/pt/post/migrate-from-jekyll/">Migrando do Jekyll para o Hugo</a></li>
+</ul>
+</li></ul>
+</nav>
+</div>
+
+
+<div class="content-container">
+<main><h1>Tutorial Criação de módulos OOT (out-of-tree)</h1>
+
+<script src="/rmarkdown-libs/header-attrs/header-attrs.js"></script>
+
+
+<div id="informações-relevantes" class="section level3">
+<h3>Informações relevantes:</h3>
+<ul>
+<li><strong>Módulo</strong>: conjunto de blocos Ex. <a href="https://www.cgran.org/1342/"><em>spectral estimation toolbox</em></a>.</li>
+<li><strong>CGRAM</strong>: <em>Comprehensive GNU Radio Archive Network</em>. Base de dados dos módulo OOT. Link: <a href="https://www.cgran.org/">CGRAM</a>.</li>
+<li><strong>Instalação de Módulos OOT do CGRAM</strong>: seguir o tutorial <a href="https://wiki.gnuradio.org/index.phpOutOfTreeModulesConfig">Configuring OOT Projects</a></li>
+<li><strong><em>gr_modtool</em></strong>: ferramenta utilizada para criação de módulos OOT, vem instalada com o GR38 e é utilizada com comandos: Ex. <code>$ gr_modtool add ...</code></li>
+<li><strong>Tutoriais Sugeridos</strong>:</li>
+</ul>
+<blockquote>
+<ol style="list-style-type: decimal">
+<li><a href="https://wiki.gnuradio.org/index.php/BlocksCodingGuide"><em>block coding guide</em></a>: O mais importante recurso para desenvolvedores de OOTs - guia de programaçao de blocos. Embora ele tenha sido escrito para módulos da árvore principal do GNURadio (que vem com a instalação), ele pode ser também aplicado em todos os módulos. Contém as convençao de nomenclaturas de blocos.</li>
+<li><a href="https://wiki.gnuradio.org/index.php/TutorialsCoreConcepts"><em>core concepts tutorial</em></a>: Tutorial de conceitos chaves do GNURadio.</li>
+<li><a href="https://wiki.gnuradio.org/index.php/TutorialsWritePythonApplications"><em>tutorial on writing Python applications</em></a>: Tutorial sobre como escrever aplicaçoes GNURadio com o Python - explica muitos recursos relevantes.</li>
+</ol>
+</blockquote>
+</div>
+<div id="programação-de-bloco---comandos" class="section level3">
+<h3>1.1 Programação de bloco - Comandos</h3>
+<hr />
+<p>Iremos criar um bloco simples cuja saída é o dobro da entrada. Para isso, inicialmente carregamos o GNURadio:</p>
+<pre class="bash"><code>source ~/prefix/GNURADIO/setup_env.sh</code></pre>
+</div>
+<div id="criação-do-módulo" class="section level2">
+<h2>1.2 Criação do módulo</h2>
+<hr />
+<p>Cria-se um bloco chamado “<em>testrix</em>”:</p>
+<pre class="bash"><code>gr_modtool newmod testrix</code></pre>
+<p>Esse comando cria uma pasta chamada <code>gr-testrix</code> no qual os arquivos do módulo estarão contidos.</p>
+<blockquote>
+<p>Creating out-of-tree module in ./gr-testrix…<br />
+Done.<br />
+Use ‘gr_modtool add’ to add a new block to this currently empty module.</p>
+</blockquote>
+</div>
+<div id="criação-do-bloco-e-adição-no-módulo" class="section level2">
+<h2>1.2 Criação do bloco e adição no módulo</h2>
+<hr />
+<p>Iremos fazer um bloco que multiplica uma entrada, (float), por 2. O bloco é chamado de “<em>multiplicaPorDois_ff</em>”
+entrada=float, saída=float.</p>
+<pre class="bash"><code>cd gr-testrix
+gr_modtool add -t general -l cpp multiplicaPorDois_ff</code></pre>
+<p>Adiciona o bloco <em>multiplicaPorDois_ff</em>, de tipo (‘t’) “geral” , que será escrito, (‘l’= language), em C++.
+&gt;
+&gt; GNU Radio module name identified: testrix
+&gt; Language: C++
+&gt; Block/code identifier: multiplicaPorDois_ff</p>
+<p>Especificar os códigos em que linguagem será escrita os arquivos de teste do nosso bloco (python ou C++). Neste caso escolhemos Python.</p>
+<pre class="bash"><code>Please specify the copyright holder: &quot;press ENTER&quot;
+Enter valid argument list, including default arguments: &quot;press ENTER&quot;
+Add Python QA code? [Y/n]  &quot;Y&quot;
+Add C++ QA code? [y/N]    &quot;N&quot;</code></pre>
+<p>Irá gerar os scripts pra edição:</p>
+<blockquote>
+<p>Adding file ‘lib/multiplicaPorDois_ff_impl.h’…<br />
+Adding file ‘lib/multiplicaPorDois_ff_impl.cc’…<br />
+Adding file ‘include/testrix/multiplicaPorDois_ff.h’…<br />
+Editing swig/testrix_swig.i…<br />
+Adding file ‘python/qa_multiplicaPorDois_ff.py’…<br />
+Editing python/CMakeLists.txt…<br />
+Adding file ‘grc/testrix_multiplicaPorDois_ff.block.yml’…<br />
+Editing grc/CMakeLists.txt…</p>
+</blockquote>
+</div>
+<div id="edição-do-script-de-teste" class="section level2">
+<h2>1.3 Edição do script de teste</h2>
+<hr />
+<p>A saída do nossso bloco é igual a duas vezes a entrada, para criar os testes deste bloco especificamos então valores de entrada, por exemplo {2,4,6}, e os valores esperados na saída, neste exemplo {4,8,12}.
+Abrimos o arquivo gerado para o teste <code>qa_multiplicaPorDois_ff.py</code> no diretório <code>python/</code>, com um editor:</p>
+<pre class="bash"><code>cd python
+sudo gedit qa_multiplicaPorDois_ff.py</code></pre>
+<p>E adicionamos o código:</p>
+<pre class="bash"><code>from gnuradio import gr, gr_unittest
+from gnuradio import blocks
+import testrix_swig as testrix
+
+class qa_multiplicaPorDois_ff(gr_unittest.TestCase):
+
+    def setUp(self):
+        self.tb = gr.top_block()
+
+    def tearDown(self):
+        self.tb = None
+
+    def test_001_t(self):
+        src_data = (-2, 1, 2, 4, 6)
+        expected_result = (-4, 2, 4, 8, 12)
+        src = blocks.vector_source_f(src_data)
+        sqr = testrix.multiplicaPorDois_ff()
+        dst = blocks.vector_sink_f()
+        self.tb.connect(src, sqr)
+        self.tb.connect(sqr, dst)
+        self.tb.run()
+        result_data = dst.data()
+        self.assertFloatTuplesAlmostEqual(expected_result, result_data, 6)
+
+if __name__ == &#39;__main__&#39;:
+    gr_unittest.run(qa_multiplicaPorDois_ff, &quot;qa_multiplicaPorDois_ff.xml&quot;)</code></pre>
+<ul>
+<li><p><code>test_001_multiplicaPorDois_ff</code>: cria um pequeno grafo que possui três nós:</p></li>
+<li><p><strong>Unitest</strong>: é uma extensao para o módulo <em>unittest</em> do Python. Adiciona suporte para verificar igualdades entre conjuntos de <em>floats</em> e números complexos. O <em>unittest</em> usa o mecanismo de reflexão do Python para encontrar todos os métodos que começam com test_ e os executam. Mais informações no link: <a href="https://docs.python.org/2/library/unittest.html">Python unittest documentation</a>
+Ordem de compilação do test: <code>gr_unittest.main</code> irá chamar <code>setUp</code>, <code>test_001_multiplicaPorDois_ff</code> e <code>tearDown</code>, nesta ordem.</p>
+<ul>
+<li><code>blocks.vector_source_f(src_data)</code> vai carregar os elementos contidos em <code>src_data</code> e finalizar o processo.</li>
+<li><code>textrix.multiplicaPorDois_ff()</code>: é o bloco que estamos testando.</li>
+<li><code>blocks.vector_sink_f()</code>: reúne as saídas de <code>testrix.multiplicaPorDois_ff</code>.</li>
+</ul></li>
+</ul>
+<p>O método <code>run()</code>irá rodar os testes até que todos os blocos sejam finalizados. Os resultados são verificados batendo se os valores de entrada áe sida. Verifica-se se, ao rodar <code>multiplicaPorDois_ff</code> com as entradas <code>src_data</code>, os valores eperados na saída são obtidos.</p>
+</div>
+<div id="edição-dos-arquivos-header-e-do-arquivo-principal-c" class="section level2">
+<h2>1.4 Edição dos arquivos header e do arquivo principal C++</h2>
+<hr />
+<p>Como o bloco realiza uma tarefa simples, não necessitamos alterar os arquivos <em>headers</em> da pasta <code>include/</code>. Alteramos então o arquivo C++: <code>multiplicaPorDois_ff_impl.cc</code>no diretório <code>lib/</code></p>
+<p>Inicialmente configuramos o número de items de entrada e saída. Neste caso, temos um item de entrada e um item de saída, ambos do tipos <em>float</em>.</p>
+<pre class="bash"><code>multiplicaPorDois_ff_impl::multiplicaPorDois_ff_impl()
+      : gr::block(&quot;multiplicaPorDois_ff&quot;,
+              gr::io_signature::make(1, 1, sizeof(float)),
+              gr::io_signature::make(1, 1, sizeof(float)))
+    {}\\empty constructor</code></pre>
+<p>O construtor está vazio pois o bloco <code>multiplicaPorDois_ff</code> não precisa configurar nada.</p>
+<p>Uma parte interessante é como é feita a definição das assinaturas de entrada e saída, como configurar esta relaçãço de items produzidos e “consumidos”. Na entrada, temos uma porta que permite <em>floats</em>, mesmo com a porta de saída. Deve-se entao, descomentar/alterar a linha <code>/* &lt;+forecast+&gt; e.g. ninput_items_required[0] = noutput_items */</code>, para que fique da forma abaixo;</p>
+<pre class="bash"><code> void
+    square_ff_impl::forecast (int noutput_items, gr_vector_int &amp;ninput_items_required)
+    {
+      ninput_items_required[0] = noutput_items;
+    }</code></pre>
+<p><code>forecast()</code> é uma função que informa ao planejador, (<em>scheduler</em>), quantos itens de entrada são necessários para produzir os itens de saída <code>noutput_items</code>. Nesse caso, são iguais. O índice 0 indica que esta relação se refere à primeira porta, (só temos uma neste caso). Geralmente, esse é o caso da relação (entradas e saídas) em muitos blocos, (1x1). Por exemplo, você pode ver como <code>gr::block</code>, <code>gr::sync_block</code>, <code>gr::sync_decimator</code> e <code>gr::sync_interpolator</code>, definem as funções de previsão de entradas e saídas padrão para contabilizar taxa de alteração e histórico.</p>
+<p>Por fim, existe o método<code>general_work()</code>, que é puramente virtual no <code>gr::block</code>, então precisamos defini-lo, pois é este método que processa o sinal. Neste método definimos a ação principal, no caso, devemos especificar que a saída é o dobro da entrada: <em>out=in*2</em></p>
+<pre class="bash"><code>int
+    square_ff_impl::general_work (int noutput_items,
+                                  gr_vector_int &amp;ninput_items,
+                                  gr_vector_const_void_star &amp;input_items,
+                                  gr_vector_void_star &amp;output_items)
+    {
+      const float *in = (const float *) input_items[0];
+      float *out = (float *) output_items[0];
+
+      for(int i = 0; i &lt; noutput_items; i++) {
+        out[i] = in[i] * 2;
+      }
+      // Do &lt;+signal processing+&gt;
+      // Tell runtime system how many input items we consumed on
+      // each input stream.
+      consume_each (noutput_items);
+
+      // Tell runtime system how many output items we produced.
+      return noutput_items;
+    }</code></pre>
+</div>
+<div id="construindo-bloco-com-cmake" class="section level2">
+<h2>1.5 Construindo bloco com CMake</h2>
+<hr />
+<p>Como estamos usando o Cmake, para certificar que o prefixo de instalaçao seja “herdado” do PYBOMBS, e o bloco seja instalado na mesma arvore de instalação dos demais blocos, carregamos o arquivo de configuração do PYBOMBS (que carrega variáveis de ambiente que serão lidas pelo CMake):</p>
+<pre class="bash"><code>pybombs auto-config -c  ~/.pybombs/config.yml</code></pre>
+<p>Depois de programar os scritpts,, construimos o bloco com os seguintes comandos no diretório <code>gr-testrix</code>:</p>
+<pre class="bash"><code>mkdir build    # We&#39;re currently in the module&#39;s top directory
+cd build/
+cmake ../      # Tell CMake that all its config files are one dir up
+make           # And start building (should work after the previous section)</code></pre>
+<p>Se não houver problemas com os códigos o bloco será construido com sucesso.</p>
+</div>
+<div id="testando-o-bloco" class="section level2">
+<h2>1.6 Testando o bloco</h2>
+<hr />
+<p>Para rodar os testes QA, uma vez dentro do diretório <code>build/</code>, podemos utilizar o comando.</p>
+<pre class="bash"><code>make test</code></pre>
+<p>Para visualizar mais detalhes:</p>
+<pre class="bash"><code>ctest -V -R multiplicaPorDois</code></pre>
+<p>Sendo o flag -V indica saída detalhada e o flag -R é uma expressão <em>regex</em> para executar apenas os testes que correspondem à <em>string</em>.</p>
+<ul>
+<li><strong>Observações</strong>:
+<ul>
+<li>Cada vez que for alterado o código do bloco (<em>headers</em>, código principal contido em <code>lib/</code>, ou <em>xml</em> que será adicionado ao diretório <code>grc/</code>), devemos atualizar o bloco relançando os comandos <code>cmake ../</code> e <code>make</code>.</li>
+<li>Os arquivos do teste como <code>qa_multiplicaPorDois_ff.py</code> são usados com o comando <code>make test</code>, (que invoca o <code>ctest</code>), sem necessitar de recompilação do bloco para que suas alterações tenham efeito.</li>
+</ul></li>
+</ul>
+</div>
+<div id="criando-a-representação-gráfica-do-bloco" class="section level2">
+<h2>1.7 Criando a representação gráfica do bloco</h2>
+<hr />
+<p>Inicialmente criamos o arquivo <code>multiplicaPorDois_ff.xml</code> no diretório <code>grc/</code> com o seguinte conteúdo:</p>
+<pre class="xml"><code>&lt;block&gt;
+  &lt;name&gt;multiplicaPorDois_ff&lt;/name&gt;
+  &lt;key&gt;testrix__ff&lt;/key&gt;
+  &lt;category&gt;[testrix]&lt;/category&gt;
+  &lt;import&gt;import testrix&lt;/impmort&gt;
+  &lt;make&gt;testrix.multiplicaPorDois_ff()&lt;/make&gt;
+  &lt;sink&gt;
+    &lt;name&gt;in&lt;/name&gt;
+    &lt;type&gt;float&lt;/type&gt;
+  &lt;/sink&gt;
+  &lt;source&gt;
+    &lt;name&gt;out&lt;/name&gt;
+    &lt;type&gt;float&lt;/type&gt;
+  &lt;/source&gt;
+&lt;/block&gt;</code></pre>
+<p>O GR38 utiliza linguagem <code>yaml</code>para edição dos blocos enquanto que as versões estáveis, como a 3.7, trabalham com <code>xml</code>. No nosso caso utilizamos a versao GR3.8, e utilizamos um conversor experimental que o <code>gr_modtool</code> oferece para conversao <code>xml</code> <code>yaml</code> , (mais informaõçes no <em>help</em> do <code>gr_modtool</code>). No diretorio <code>gr-testrix</code> entre com:</p>
+<pre class="bash"><code>gr_modtool makeyaml multiplicaPorDois_ff -y</code></pre>
+<p>Gerando a seguinte mensagem:</p>
+<pre class="bash"><code>GNU Radio module name identified: testrix
+Warning: This is an experimental feature. Don&#39;t expect any magic.
+Searching for matching files in lib/:
+Making GRC bindings for lib/multiplicaPorDois_ff_impl.cc...
+Warning: Overwriting existing GRC file.</code></pre>
+<p>Note que é uma versão experimental, erros podem haver.
+Agora recompilamos e instalamos o bloco, a partir do diretório <code>build/</code>:</p>
+<pre class="bash"><code>cmake ../
+make
+make install</code></pre>
+<p>E finalmente refazemos o teste:</p>
+<pre class="bash"><code>make test</code></pre>
+<p>Se tudo der certo teremos instalado o nosso módulo <code>testrix</code>que contém o bloco <code>multiplicaPorDois_ff</code> no GR38.</p>
+<p>Agora, abrindo o GNUradio e observando no guia das bibliotecas á direita, juntamente com os blocos pré instalados, o novo módulo, <code>textrix</code> deve estar disponível.</p>
+</div>
+<div id="testando-o-bloco-com-flowgraph" class="section level2">
+<h2>1.8 Testando o bloco com <em>flowgraph</em></h2>
+<hr />
+<p>Para testar o bloco , geramos um <em>flowgraph</em> com o nosso bloco e os seguintes blocos auxiliares:
+<strong>Constant Source</strong> (módulo <em>Waveform Generators</em>): geração de entrada
+<strong>QT Range</strong> Slider para seleção do valor da constante de entrada
+<strong>Throttle</strong> Para definir a freq. de processamento (amostragem)
+<strong>QT GUI Number Sink</strong> Para mostrar o resultado, o valor da saída.</p>
+<p><img src="/home/aqualtune/siteLacom/static/gnuradio/tutorialOOT.pt_files/nes.png" title="aaa" /></p>
+<p>Rodamos o script e verificamos se o bloco está funcionando como esperado</p>
+</div>
+<div id="download-files" class="section level2">
+<h2>download Files</h2>
+<center>
+<a href="/gnuradio/introduction.pt_files/index.pdf" class="button button-success">
+<i class="fas fa-file-pdf"></i> 
+pdf
+</a>
+
+
+<a href="/gnuradio/introduction.pt_files/index.pdf" class="button button-default">
+<i class="fa fa-file-word"></i> 
+word
+</a>
+
+
+<a href="/gnuradio/introduction.pt_files/index.pdf" class="button button-default">
+<i class="fa fa-file-archive"></i> 
+tex
+</a>
+
+
+</center>
+</div>
+<div class="edit-meta">
+Last updated on 14 May 2020
+
+
+<br>
+Published on 14 May 2020
+<br><a href="https://github.com/thingsym/hugo-theme-techdoc/edit/master/content/gnuradio/tutorialOOT/tutorialOOT.pt.html" class="edit-page"><i class="fas fa-pen-square"></i> Edit on GitHub</a></div><nav class="pagination"><a class="nav nav-prev" href="/pt/gnuradio/introdutcion/introduction/" title="Introdução"><i class="fas fa-arrow-left" aria-hidden="true"></i> Prev - Introdução</a>
+<a class="nav nav-next" href="/pt/gnuradio/tutorialadsb/tutorialadsb/" title="Tutorial Instalação de bloco ADSB">Next - Tutorial Instalação de bloco ADSB <i class="fas fa-arrow-right" aria-hidden="true"></i></a>
+</nav><footer><p class="powered">Powered by <a href="https://gohugo.io">Hugo</a>. Theme by <a href="https://themes.gohugo.io/hugo-theme-techdoc/">TechDoc</a>. Designed by <a href="https://github.com/thingsym/hugo-theme-techdoc">Thingsym</a>.</p>
+</footer>
+</main><div class="sidebar">
+
+<nav class="slide-menu">
+<ul>
+<li class=""><a href="/"></a></li>
+
+<li class="parent has-sub-menu"><a href="/pt/gnuradio/"> 1 GNURadio<span class="mark opened">-</span></a>
+  
+<ul class="sub-menu">
+<li class=""><a href="/pt/gnuradio/installation/installation/">  1.1 Instalação</a></li>
+<li class=""><a href="/pt/gnuradio/introdutcion/introduction/">  1.2 Introdução</a></li>
+<li class="active"><a href="/pt/gnuradio/tutorialoot/tutorialoot/">  1.3 Tutorial Criação de módulos OOT (out-of-tree)</a></li>
+<li class=""><a href="/pt/gnuradio/tutorialadsb/tutorialadsb/">  1.4 Tutorial Instalação de bloco ADSB</a></li>
+</ul>
+  
+</li>
+
+<li class=" has-sub-menu"><a href="/pt/sdr/"> 2 Software Defined Radio - SDR<span class="mark closed">+</span></a>
+  
+<ul class="sub-menu">
+
+<li class=" has-sub-menu"><a href="/pt/sdr/usrp2932/"> 2.1 USRP 2932<span class="mark closed">+</span></a>
+  
+<ul class="sub-menu">
+<li class=""><a href="/pt/sdr/usrp2932/introduction/usrp2932/">  2.1.1 Introducao</a></li>
+<li class=""><a href="/pt/sdr/usrp2932/configuration/usrp2932/">  2.1.2 Configuracao</a></li>
+</ul>
+  
+</li>
+
+<li class=" has-sub-menu"><a href="/pt/sdr/limesdr/"> 2.2 Lime - SDR<span class="mark closed">+</span></a>
+  
+<ul class="sub-menu">
+<li class=""><a href="/pt/sdr/limesdr/introduction/usrp2932/">  2.2.1 Introducao</a></li>
+</ul>
+  
+</li>
+
+<li class=" has-sub-menu"><a href="/pt/sdr/usrpdongle/"> 2.3 USRP - Dongle<span class="mark closed">+</span></a>
+  
+<ul class="sub-menu">
+<li class=""><a href="/pt/sdr/usrpdongle/introduction/usrp2932/">  2.3.1 Introducao</a></li>
+</ul>
+  
+</li>
+</ul>
+  
+</li>
+
+<li class=" has-sub-menu"><a href="/pt/networks/"> 3 Redes<span class="mark closed">+</span></a>
+  
+<ul class="sub-menu">
+
+<li class=" has-sub-menu"><a href="/pt/networks/protocols/"> 3.1 Protocolos<span class="mark closed">+</span></a>
+  
+<ul class="sub-menu">
+<li class=""><a href="/pt/networks/protocols/ieee80211ah/usrp2932/">  3.1.1 IEEE 802.11ah</a></li>
+<li class=""><a href="/pt/networks/protocols/lora/usrp2932/">  3.2.1 LORA</a></li>
+</ul>
+  
+</li>
+</ul>
+  
+</li>
+
+<li class=""><a href="/pt/adddocumentation/"> 4 Adicionando posts no site</a>
+  
+</li>
+
+<li class=" has-sub-menu"><a href="/pt/sample/">  Exemplos de arquivos<span class="mark closed">+</span></a>
+  
+<ul class="sub-menu">
+<li class=""><a href="/pt/sample/search-shortcode/">   Shortcodes de busca</a></li>
+</ul>
+  
+</li>
+
+
+</ul>
+</nav>
+
+
+
+<div class="sidebar-footer">
+
+
+
+</div>
+</div>
+</div><a href="#" id="backtothetop-fixed" class="backtothetop"
+ data-backtothetop-duration="600"
+ data-backtothetop-easing="easeOutQuart"
+ data-backtothetop-fixed-fadeIn="1000"
+ data-backtothetop-fixed-fadeOut="1000"
+ data-backtothetop-fixed-bottom="10"
+ data-backtothetop-fixed-right="20">
+<span class="fa-layers fa-fw">
+<i class="fas fa-circle"></i>
+<i class="fas fa-arrow-circle-up"></i>
+</span></a>
+</div>
+</body>
+</html>

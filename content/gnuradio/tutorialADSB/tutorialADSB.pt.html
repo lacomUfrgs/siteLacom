@@ -1,0 +1,148 @@
+---
+title: Tutorial Instalação de bloco ADSB
+author: edersonrmachado
+weight: 14
+pgIdentifier: 1.4
+date: '2020-05-15'
+slug: tutorialADSB
+categories:
+  - gnuradio
+tags:
+  - gnuradio
+  - ADSB
+  - tutorial
+  - OOT
+lastmod: '2020-05-15T00:31:19-03:00'
+publishdate: '2020-05-15T00:31:19-03:00'
+description: ''
+
+keywords: [Gnuradio,  out-of-tree, blocos]
+output: 
+  html_document:
+    theme: cosmo
+    highlight: tango
+#    css: styles.css
+#    includes:
+#      in_header: header.html
+#      before_body: beforeBody.html
+#      after_body: footer2.html
+    toc: true 
+ #   number_sections: true
+ #   toc_depth: 4
+#    fig_width: 7
+#    fig_height: 6
+#    fig_caption: true
+#    template:  ~/.local/share/pandoc/pandoc-templates/default.html5 
+  pdf_document:
+    keep_tex: true
+abstract: |
+   This article ... versão _release_ do  GNURadio v.3.8.1.0.  
+---
+
+<script src="/rmarkdown-libs/header-attrs/header-attrs.js"></script>
+
+
+<p>Este tutorial visa ajudar na instalação do bloco OOT de transmissão contínua de pacotes ADSB. Estes pacotes correspondem à mensagens de duas aeronaves localizadas em localizações distintas (Filipinas e Itália).
+Ao extrair os arquivos deste tutorial, você verá uma pasta chamada de <code>ADSBInstalacao</code>. Nesta pasta estão contidos os seguintes arquivos :</p>
+<ul>
+<li><code>README.md</code> - arquivo deste tutorial.<br />
+</li>
+<li><code>installADSB.sh</code> - <em>Script</em> de instalação direta do módulo.<br />
+</li>
+<li><code>uninstallADSB.sh</code> - <em>Script</em> de deinstalação direta do módulo.<br />
+</li>
+<li><code>ADSBInstalled</code> - pasta com os arquivos do módulo.</li>
+</ul>
+<p>Copie o conteúdo da pasta <code>ADSBInstallled</code> para seu diretório raiz, <code>/home/user</code>:</p>
+<p>Para rodar o <em>Gnuradio</em> e utilizar o <em>gr_modtool</em> abrimos um terminal e carregamos as variaveis de ambiente</p>
+<pre class="bash"><code>source ~/GNURADIO/setup_env.sh </code></pre>
+<p>Teremos então que criar um módulo ADSB e adicionar o nosso bloco que enviará os pacotes. Chamamos este bloco de <code>adsbSingleMsgGen_b</code>.
+Apos adicionar o bloco substituímos os arquivos principais que definem este bloco, contidas na pasta <code>gr-ADSB</code>:</p>
+<ul>
+<li><code>adsbSingleMsgGen_b.h</code> do subdiretório <code>include/ADSB</code></li>
+<li><code>adsbSingleMsgGen_b_impl.h</code> e <code>adsbSingleMsgGen_b_impl.cc</code> no subdiretório <code>lib/</code></li>
+<li><code>ADSB_adsbSingleMsgGen_b.xml</code> e <code>ADSB_adsbSingleMsgGen_b.block.yml</code> do subdiretório <code>grc/</code></li>
+</ul>
+<p>pelos nossos arquivos de código, contidos na pasta <code>gr-ADSBInstalled</code>, e finalmente, instalamos o bloco com o CMake.
+Podemos realizar o processo de instalação, duas maneiras:</p>
+<ul>
+<li><strong>Instalação passo-à-passo</strong> : mostra os comandos de cada passo da instalação.</li>
+<li><strong>Instalação direta</strong> : usa <em>scripts sh</em> e instala ou deleta o módulo ADSB com um só comando, automatizando o processo passo-à-passo.</li>
+</ul>
+<div id="instalação-passo-à-passo" class="section level3">
+<h3>1. Instalação passo-à-passo</h3>
+<div id="criação-do-módulo" class="section level4">
+<h4>1.1 Criação do módulo</h4>
+<p>Cria-se um módulo chamado “ADSB”:</p>
+<pre class="bash"><code>gr_modtool newmod ADSB</code></pre>
+</div>
+<div id="criação-do-bloco-e-adição-no-módulo" class="section level4">
+<h4>1.2 Criação do bloco e adição no módulo</h4>
+<p>O bloco de transmissão tipo <code>sync</code>sem entrada, e com uma saída. Este tipo de bloco é classificado como <code>source</code>.</p>
+<pre class="bash"><code>cd gr-ADSB
+gr_modtool add -t sync -l cpp adsbSingleMsgGen_b</code></pre>
+<p>Especificar os códigos em que linguagem será escrita os arquivos de teste do nosso bloco (python ou C++). Neste caso não foi criado código de teste.</p>
+<pre class="bash"><code>Please specify the copyright holder: &quot;press ENTER&quot;
+Enter valid argument list, including default arguments: &quot;press ENTER&quot;
+Add Python QA code? [Y/n]  &quot;N&quot;
+Add C++ QA code? [y/N]    &quot;N&quot;</code></pre>
+</div>
+<div id="copiando-e-substituindo-arquivos" class="section level4">
+<h4>1.3 Copiando e substituindo arquivos</h4>
+<ul>
+<li>Na pasta <code>gr-ADSB/include/ADSB</code> substituir o arquivo <em>header</em><code>adsbSingleMsgGen_b.h</code> pelo da pasta <code>gr-ADSBInstalled/ADSB</code>.</li>
+</ul>
+<pre class="bash"><code>cd ~
+cp gr-ADSBInstalled/lib/adsbSingleMsgGen_b_impl.cc gr-ADSBInstalled/lib/adsbSingleMsgGen_b_impl.h  gr-ADSB/lib/</code></pre>
+<ul>
+<li>Na pasta <code>gr-ADSB/lib/</code> substituir os arquivos
+<code>adsbSingleMsgGen_b_impl.cc</code> (arquivo principal C++) e <code>adsbSingleMsgGen_b_impl.h</code> <em>header </em>, pelos arquivos de mesmo nome contidos na pasta <code>gr-ADSBInstalled/lib/</code></li>
+</ul>
+<pre class="bash"><code>cp gr-ADSBInstalled/include/ADSB/adsbSingleMsgGen_b.h  gr-ADSB/include/ADSB</code></pre>
+<ul>
+<li>Na pasta <code>gr-ADSB/grc/</code> substituir o o arquivo <code>ADSB_adsbSingleMsgGen_b.block.yml</code> e adicionar o arqivo <code>xml</code> do bloco. <code>ADSB_adsbSingleMsgGen_b.xml</code>.</li>
+</ul>
+<pre class="bash"><code>cp gr-ADSBInstalled/grc/ADSB_adsbSingleMsgGen_b.xml gr-ADSBInstalled/grc/ADSB_adsbSingleMsgGen_b.block.yml  gr-ADSB/grc/</code></pre>
+<ul>
+<li>Na pasta <code>gr-ADSB/examples/</code> adicionamos um <em>flowgraph</em> com exemplo de como aplicar o bloco.</li>
+</ul>
+<pre class="bash"><code>cp gr-ADSBInstalled/examples/adsbExample.grc gr-ADSB/examples/</code></pre>
+</div>
+<div id="instalando-o-bloco" class="section level4">
+<h4>1.4 Instalando o bloco</h4>
+<p>Finalmente instalamos o bloco criando o diretório <code>build/</code> e rodando os comandos do CMake:</p>
+<pre class="bash"><code>cd gr-ADSB
+mkdir build    # We&#39;re currently in the module&#39;s top directory
+cd build/
+#pybombs auto-config -c  ~/.pybombs/config.yml
+cmake ../      # Tell CMake that all its config files are one dir up
+make    
+make install
+cd ~</code></pre>
+<p>Abrimos então um exemplo para uso do bloco:</p>
+<pre class="bash"><code>gnuradio-companion ~/gr-ADSB/examples/adsbExample.grc</code></pre>
+</div>
+<div id="desinstalando-o-bloco" class="section level4">
+<h4>1.5 Desinstalando o bloco</h4>
+<p>Para desinstalar e deletar os arquivos do bloco podemos usar os comandos:</p>
+<pre class="bash"><code>cd gr-ADSB/build
+make uninstall
+cd ~ 
+rm -r gr-ADSB</code></pre>
+</div>
+<div id="instalaçãodesinstalação-direta-com-script" class="section level4">
+<h4>2. Instalação/desinstalação direta com <em>script</em></h4>
+<p>Após copiar a pasta <code>gr-ADSBInstalled</code> para o diretório raiz, devemos efetuar as permissões para rodar os <em>scripts</em> bash que fazem a instalação/desinstalação do módulo <code>gr-ADSB</code>. Esses <em>scripts</em> consistem em listas que contêm a sequencia dos comandos anteriores de instalação/desinstalação do módulo.</p>
+<pre class="bash"><code>sudo chmod +x installADSB.sh uninstallADSB.sh</code></pre>
+<ul>
+<li><strong><em>Instalação</em></strong>
+Rodar o <em>script</em> <code>installADSB.sh</code>:</li>
+</ul>
+<pre class="bash"><code>bash installADSB.sh</code></pre>
+<ul>
+<li><strong><em>Desinstalação</em></strong></li>
+</ul>
+<p>Rodar o <em>script</em><code>uninstallADSB.sh</code>:</p>
+<pre class="bash"><code>bash uninstallADSB.sh</code></pre>
+</div>
+</div>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>GNURadio on Networks and Telecommunication Lab LACOM  -  UFRGS</title>
+    <link>/gnuradio/</link>
+    <description>Recent content in GNURadio on Networks and Telecommunication Lab LACOM  -  UFRGS</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Tue, 17 Oct 2017 15:26:15 +0000</lastBuildDate>
+    
+	<atom:link href="/gnuradio/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Installation</title>
+      <link>/gnuradio/installation/installation/</link>
+      <pubDate>Sat, 23 May 2020 00:00:00 +0000</pubDate>
+      
+      <guid>/gnuradio/installation/installation/</guid>
+      <description>There are some ways to install GNURadio such as Binary, from source or PyBOMBS installation. The recommended way depends on plataform and purpose. This turorial provides some commands to install GNURadio with PyBOMBS (Python Build Overlay Managed Bundle System).
+PyBOMBS is the GNURadio install management system for resolving dependencies and pulling in out-of-tree projects. Based on PyBOMBS README, this document offers two versions of GNURadio installation:
+ gnuradio-stable : version 3.</description>
+    </item>
+    
+  </channel>
+</rss>

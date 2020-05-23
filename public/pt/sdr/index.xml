@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Software Defined Radio - SDR on Laboratório de Redes e Telecom LACOM  -  UFRGS</title>
+    <link>/pt/sdr/</link>
+    <description>Recent content in Software Defined Radio - SDR on Laboratório de Redes e Telecom LACOM  -  UFRGS</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Tue, 17 Oct 2017 15:26:15 +0000</lastBuildDate>
+    
+	<atom:link href="/pt/sdr/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+  </channel>
+</rss>

@@ -1,0 +1,41 @@
+<header>
+<h1>{{ .Site.Title }}</h1>
+{{ with .Site.Params.version }}
+ <span class="version">Version {{ . }}</span>
+{{end}}
+{{- with .Site.Params.github_repository -}}
+<a href="{{ . }}" class="github"><i class="fab fa-github"></i></a>
+{{- end -}}
+
+<!--{{ with .Site.Params.description }}
+<p class="description">{{ . }}</p>
+{{end}}
+-->
+
+
+
+<p class="description"> {{.Site.Params.description}}  &nbsp;&nbsp;
+    {{ if .IsTranslated }}
+        {{ range .Translations }}
+            {{ if eq .Lang "en" }}
+                <a href="{{ .Permalink }}"><i>[{{ .Lang }}glish]{{ if .IsPage }}{{ i18n "wordCount" . }}{{ end }}</i></a>
+            {{ else if eq .Lang "pt" }}
+                <a href="{{ .Permalink }}"><i>[portuguese]{{ if .IsPage }}{{ i18n "wordCount" . }}{{ end }}</i></a>
+            {{end}}
+</p>
+        {{ end }}
+    {{end}}
+
+<!--... 
+{{ if .IsTranslated }}
+<h4>{{ i18n "translations" }}</h4>
+    {{ range .Translations }}
+    {{ if eq .Lang "en" }}
+        <a href="{{ .Permalink }}"><i>{{ .Lang }}glish{{ if .IsPage }}{{ i18n "wordCount" . }}{{ end }}</i></a>
+    {{ else if eq .Lang "pt" }}
+        <a href="{{ .Permalink }}"><i>portuguese{{ if .IsPage }}{{ i18n "wordCount" . }}{{ end }}</i></a>
+    {{ end }}
+{{ end }}
+{{ end }}
+-->
+</header>

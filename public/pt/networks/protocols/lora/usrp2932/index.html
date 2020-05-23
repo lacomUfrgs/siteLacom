@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html>
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<title>LORA - Laboratório de Redes e Telecom LACOM  -  UFRGS</title>
+<meta name="description" content=" THIS IS THE DESCRIPTION">
+<meta name="generator" content="Hugo 0.70.0" />
+<link href="/index.xml" rel="alternate" type="application/rss+xml">
+<link rel="canonical" href="/pt/networks/protocols/lora/usrp2932/">
+<link rel="stylesheet" href="/css/theme.min.css">
+<script src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
+<link rel="stylesheet" href="/css/chroma.min.css">
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.4.1/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery.easing@1.4.1/jquery.easing.min.js"></script>
+<script src="/js/bundle.js"></script><style>
+:root {}
+</style>
+<meta property="og:title" content="LORA" />
+<meta property="og:description" content=" THIS IS THE DESCRIPTION" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="/pt/networks/protocols/lora/usrp2932/" />
+<meta property="og:image" content="/images/og-image.png"/>
+<meta property="article:published_time" content="2020-05-13T22:26:05-03:00" />
+<meta property="article:modified_time" content="2020-05-13T22:26:05-03:00" /><meta property="og:site_name" content="Laboratório de Redes e Telecom LACOM  -  UFRGS" />
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="/images/og-image.png"/>
+
+<meta name="twitter:title" content="LORA"/>
+<meta name="twitter:description" content=" THIS IS THE DESCRIPTION"/>
+<meta itemprop="name" content="LORA">
+<meta itemprop="description" content=" THIS IS THE DESCRIPTION">
+<meta itemprop="datePublished" content="2020-05-13T22:26:05-03:00" />
+<meta itemprop="dateModified" content="2020-05-13T22:26:05-03:00" />
+<meta itemprop="wordCount" content="1497">
+<meta itemprop="image" content="/images/og-image.png"/>
+
+
+
+<meta itemprop="keywords" content="gnuradio,introduction,signal,introduçao," /> 
+
+
+</head>
+<body><div class="container"><header>
+<h1>Laboratório de Redes e Telecom LACOM  -  UFRGS</h1>
+<a href="https://github.com/thingsym/hugo-theme-techdoc" class="github"><i class="fab fa-github"></i></a>
+
+
+
+<p class="description"> Repositório de Documentos Técnicos  &nbsp;&nbsp;
+    
+        
+            
+                <a href="/networks/protocols/lora/introduction/"><i>[english]</i></a>
+            
+</p>
+        
+    
+
+
+</header>
+<div class="global-menu">
+<nav>
+<ul>
+<li><a href="/pt/home-pt/">Home</a></li>
+<li><a href="https://twitter.com/thingsym">Twitter</a></li><li class="parent"><a href="">Tutoriais<i class="fas fa-angle-right"></i></a>
+<ul class="sub-menu">
+<li class="child"><a href="/pt/post/creating-a-new-theme/">Criando um novo tema</a></li>
+<li class="child"><a href="/pt/post/migrate-from-jekyll/">Migrando do Jekyll para o Hugo</a></li>
+</ul>
+</li></ul>
+</nav>
+</div>
+
+
+<div class="content-container">
+<main><h1>LORA</h1>
+
+<script src="/rmarkdown-libs/header-attrs/header-attrs.js"></script>
+
+
+<div id="introdução-ao-gnuradio-e-radio-definido-por-software" class="section level2">
+<h2>Introdução ao GNURadio e Radio definido por software</h2>
+<hr />
+</div>
+<div id="o-que-é-o-gnuradio" class="section level2">
+<h2>1.1 O que é o GNURadio</h2>
+<hr />
+<p>Gnuradio é um <a href="https://tableless.github.io/iniciantes/manual/js/o-que-framework.html">Framework</a><a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a> que possibilita projetar, simular e implantar sistemas de rádios (de alta capacidade) do mundo real. O Gnuradio utiliza linguagem de fluxogramas, é modular, e vem com uma biblioteca abrangente de blocos de processamento, que podem ser facilmente combinados para criar aplicações complexas de processamento de sinais.
+O Gnuradio tem sido usado para uma enorme variedade de aplicações de rádio no mundo real. incluindo processamento de áudio, comunicações móveis (<em>mobile communications</em>), rastreamento de satélites, sistemas de radar. redes GSM, <a href="https://en.wikipedia.org/wiki/Digital_Radio_Mondiale">Digital Radio Mondiale</a> <a href="#fn2" class="footnote-ref" id="fnref2"><sup>2</sup></a>, e muito mais - todos implementados via software.
+O Gnuradio não é uma soluçã para comunicaçã para qualquer rádio específico, também não fornece aplicativos para padroes específicos de comunicaçã de rádio( por exemplo 802.11, ZigBee, LTE, etc), mas pode ser usado para desenvolver implementações de basicamente qualquer padrão de comunicação de banda limitada.</p>
+</div>
+<div id="por-que-utilizar-o-gnuradio" class="section level2">
+<h2>1.2 Por que utilizar o GNURadio</h2>
+<hr />
+<p>Anteriormente, para desenvolver dispositivos de comunicação, o engenheiro desenvolvia um circuito específico para detecçã de uma classe de sinais específica, desenvolvia um circuito integrado também específico capaz de decodificar ou codificar esta transmissão e <a href="https://pt.wikipedia.org/wiki/Depura%C3%A7%C3%A3o">depurava</a><a href="#fn3" class="footnote-ref" id="fnref3"><sup>3</sup></a>, usando equipamentos caros.</p>
+<p>Radio definido por Software (Software-defined Radio - SDR), pega o processamento do sinal analógico e o move, na medida do possível física e economicamente, para processar o sinal de radio em um computador usando algoritmos e software.</p>
+<p>É possível usar um dispositivo de radio conectado ao computador e ir escrevendo cd programas do zero, concatenando algoritmos conforme a necessidade e mover/monitorar a entrada e saída de dados. Mas fazer isso pode se tornar complicado. Por quê reimplementar um filtro pafdrão? Por quê preocupar-se em como os dados irão se mover entre os diferentes blocos de processamento? Nao seria melhor utilizar implementações otimizadas e revisadas que reescrever, toda vez que for usar, estes blocos? E como tornar nossa implementação escalonável em arquiteturas multi-core e como fazer com que elas rodem em um dispositivo embarcado que consuma poucos watts de potência? Você realmente gostaria de programar todas as interfaces GUI?</p>
+<p>O Gnuradio é um framework dedicado a escrita de aplicações de processamento de sinais com um computador comum. Gnuradio desenvolve funcionalidades que sao aplicadas através de blocos fáceis de utilizar e reutilizar. Ele oferece exelente escalabilidade, dispoe de uma biblioteca extensa de algoritmos, e é altamente otimizado para uma ampla variedade de plataformas. O Gnuradio também possui um extenso conjunto de exemplos para você começar.</p>
+</div>
+<div id="sinal-digital" class="section level2">
+<h2>1.3 Sinal Digital</h2>
+<hr />
+<p>O Gnuradio trabalha com sinais digitalizados para gerar funções de comunicação utilizando para isso computadores de uso comum.</p>
+</div>
+<div id="um-pouco-sobre-a-teoria-do-sinal" class="section level2">
+<h2>1.3.1 Um pouco sobre a teoria do sinal</h2>
+<hr />
+<p>O processamento de sinais com software requer que o sinal seja digital.
+Mas o que seria um sinal digital?
+Para entender melhor, vamos analisar o seguinte cenário: imagine a gravação da voz para transmissão usando um celular.
+Neste cenário, uma pessoa falando cria um sinal sonoro - o sinal, nesse caso, é composto por ondas de pressão de ar variável geradas pelas cordas vocais de um ser humano. Uma quantidade física variável no tempo, como a pressão do ar, é o que é definido como sinal.</p>
+<p><img src="/gnuradio/introduction.pt_files/Sound_vocal.png" title="Air Pressure" /></p>
+<p><img src="/gnuradio/introduction.pt_files/P_to_u.png" title="Digital Wave" /></p>
+<p>Quando as ondas chegam ao microfone, ele converte a vairação de pressão do ar em um sinal elétrico, uma tensão variável.</p>
+<p>Agora, como o sinal é elétrico, podemos trabalhar com ele. O sinal de áudio, neste ponto é analógico - um computador ainda nao consegue trabalhar com ele. Para fins de processamento computacional um sinal deve ser digital, o que significa duas coisas:
+- Ele pode possuir apenas um valor em um limitado número de valores possíveis
+- Ele pode existir apenas em um intervalor de tempo não infinito.</p>
+<center>
+<p><img src="/gnuradio/introduction.pt_files/Cont_to_digital.png" title="AD conversion" /></p>
+</center>
+</div>
+<div id="applicando-processamento-de-sinais-digitais-em-transmissões-de-rádio" class="section level2">
+<h2>1.3.2 Applicando processamento de sinais digitais em transmissões de rádio</h2>
+<hr />
+<p>Os mesmos princípios considerados para os sons podem ser aplicados em ondas de rádio.</p>
+<p>Em ondas de rádio, um sinal (ondas eletromagnéticas), pode ser convertido em tensão variável usando uma antena.</p>
+<center>
+<p><img src="/gnuradio/introduction.pt_files/Antenna.png" title="Antenna" /></p>
+</center>
+<p>Este sinal elétrico que está em uma frequência da portadora, que geralmente é de vários Mega ou mesmo Gigahertz.</p>
+<p>Tipos diferentes de receptores, (p. ex. Receptores Superheteródinos, Conversao Direta, Receptores de frequência Intermediária Baixa), que podema ser adquiridos comercialmente como periféricos de rádio de software dedicados. Estes dispositivos já estão disponíveis para os usuários, (por exemplo, receptores de rádio amador conectados a placas de som), ou podem ser obtidos a partir de receptores digitais de TV reconfigurados, como o notório projeto <a href="https://www.rtl-sdr.com/about-rtl-sdr/">RTL-SDR</a> <a href="#fn4" class="footnote-ref" id="fnref4"><sup>4</sup></a> dongle <a href="#fn5" class="footnote-ref" id="fnref5"><sup>5</sup></a>.</p>
+</div>
+<div id="uma-abordagem-modular-baseada-em-fluxograma-para-processamento-de-sinal-digital" class="section level2">
+<h2>1.4 Uma abordagem modular baseada em fluxograma para processamento de sinal digital</h2>
+<hr />
+<p>Para processar sinais digitais é necessário pensar nos estágios de processamento individual ( filtragem, correção, análise, detecção…) como bloco de processamento, que podem ser interconectados usando um simples indicador de fluxo com setas:</p>
+<center>
+<p><img src="/gnuradio/introduction.pt_files/Twoblocks_arrow.png" title="Blocks" /></p>
+</center>
+<p>Quando uma aplicação de processamento de sinais é construída ela é representada em um gráfico completo composto por blocos de processamento.
+Este tipo de gráfico é chamado de “flowgraph” no GNURadio.</p>
+<center>
+<p><img src="/gnuradio/introduction.pt_files/Example_flowgraph.png" title="Flowgraph" /></p>
+</center>
+<p>O GNURadio é um framework para desenvolver estes blocos de processamento e criar <em>flowgraphs</em>, que compõem as aplicações de processamento de sisnais de rádio.
+Pode-se combinar blocos existentes em um fluxograma de alto nível que faça algo tão complexo quanto receber sinais modulados digitalmente. O GNU Radio moverá os sinais de entrada automaticamente entre os blocos, fazendo com que os sinais sejam processados, quando estes estiverem prontos para isso.
+O GNU Radio é composto de um grande conjunto de blocos existentes. Apenas para se ter uma idéia do que está disponível em uma instalação padrão, apresentamos algumas das categorias de blocos mais populares e alguns de seus membros:</p>
+<ul>
+<li>Waveform Generators
+<ul>
+<li>Constant Source</li>
+<li>Noise Source</li>
+<li>Signal Source (e.g. Sine, Square, Saw Tooth)</li>
+</ul></li>
+<li>Modulators</li>
+<li>AM Demod
+<ul>
+<li>Continuous Phase Modulation</li>
+<li>PSK Mod / Demod</li>
+<li>GFSK Mod / Demod</li>
+<li>GMSK Mod / Demod</li>
+<li>QAM Mod / Demod</li>
+<li>WBFM Receiv</li>
+<li>NBFM eceie</li>
+</ul></li>
+<li>Instrumention (i.e., GUIs)
+<ul>
+<li>Conselation Sink</li>
+<li>Freqncy Sink</li>
+<li>Historam Sink</li>
+<li>Nuber Sink</li>
+<li>Tie Raster Sink</li>
+<li>Tie Sink</li>
+<li>Warfall Sink</li>
+</ul></li>
+<li>Mathperators
+<ul>
+<li>Ab</li>
+<li>Add</li>
+<li>Complex Conjugate</li>
+<li>Divide</li>
+<li>Integrate</li>
+<li>Log10</li>
+<li>Multiply</li>
+<li>RMS</li>
+<li>Subtract</li>
+</ul></li>
+<li>Channel Models
+<ul>
+<li>Channel Model</li>
+<li>Fading Model</li>
+<li>Dynamic Channel Model</li>
+<li>Frequency Selective Fading Model</li>
+<li>Filters</li>
+<li>Band Pass / Reject Filter</li>
+<li>Low / High Pass Filter</li>
+<li>IIR Filter</li>
+<li>Generic Filterbank</li>
+<li>Hilbert</li>
+<li>Decimating FIR Filter</li>
+<li>Root Raised Cosine Filter</li>
+<li>FFT Filter</li>
+</ul></li>
+<li>Fourier Analysis
+<ul>
+<li>FFT</li>
+<li>Log Power FFT</li>
+<li>Goertzel (Resamplers)</li>
+<li>Fractional Resampler</li>
+<li>Polyphase Arbitrary Resampler</li>
+<li>Rational Resampler (Synchronizers)</li>
+<li>Clock Recovery MM</li>
+<li>Correlate and Sync</li>
+<li>Costas Loop</li>
+<li>FLL Band-Edge</li>
+<li>PLL Freq Det</li>
+<li>PN Correlator</li>
+<li>Polyphase Clock Sync</li>
+</ul></li>
+</ul>
+<p>Usando esses blocos, muitas tarefas usuais, como normalizar sinais, sincronização, medições e visualização, podem ser realizadas apenas conectando o bloco apropriado ao seu gráfico de fluxo de processamento de sinal.</p>
+<p>Além disso, você pode escrever seus próprios blocos, adicionar aos blocos existentes com alguma inteligência para fornecer nova funcionalidade, ou você pode desenvolver seu próprio bloco que opera nos dados de entrada, processa e gera dados de saída.</p>
+<p>Assim, pode-se dizer que o GNURadio é uma framework, uma estrutura para o desenvolvimento de blocos de processamento de sinal e sua interação. Ele vem com uma extensa biblioteca de blocos e existem muitos sistemas disponíveis nos quais um desenvolvedor pode se basear. No entanto, o GNU Radio em si não é um software pronto para fazer algo específico - é o trabalho do usuário criar algo útil a partir dele, embora já venha com muitos exemplos úteis de trabalho. Pense nisso como um conjunto de blocos de construção.</p>
+<ul>
+<li><a href="http://168.232.237.183/index1.html">Tutorial 00T</a></li>
+</ul>
+</div>
+<div class="footnotes">
+<hr />
+<ol>
+<li id="fn1"><p>Framework - usa a idéia de reusabilidade - e se trata de um conjunto de bibliotecas ou componentes que sao usados para criar uma base onde a aplicaçã será constuída.<a href="#fnref1" class="footnote-back">↩︎</a></p></li>
+<li id="fn2"><p>Digital Radio Mondiale - DRM- é um conjunto de tecnologias de transmissao digital de áudio desenvolvidas para trabalharem nas bandas de frequencia de rádios usadas atualmente para transmissao analógica AM e FM.<a href="#fnref2" class="footnote-back">↩︎</a></p></li>
+<li id="fn3"><p>Depuração - do ingles <em>debug</em> - é o processo de encontrar e reduzir defeitos num aplicativo de software ou mesmo em hardware.<a href="#fnref3" class="footnote-back">↩︎</a></p></li>
+<li id="fn4"><p>O RTL-SDR é um dispositivo de rádio USB muito barato ~ R$ 100,00 que pode ser usado como um scanner de rádio, com base no computador, para receber sinais de rádio em tempo real (ao vivo) em sua área (sem necessidade de internet). Dependendo do modelo específico, ele pode receber frequências de 500 kHz a 1,75 GHz. A maioria dos softwares para o RTL-SDR também é desenvolvida pela comunidade e fornecida gratuitamente. As origens do RTL-SDR decorrem de dongles sintonizadores de TV DVB-T produzidos em massa, baseados no chipset RTL2832U. Com os esforços combinados de Antti Palosaari, Eric Fry e Osmocom (em particular Steve Markgraf), verificou-se que os dados brutos de I/Q no chipset RTL2832U podiam ser acessados diretamente, o que permitiu que o sintonizador de TV DVB-T fosse convertido em um rádio definido por software de banda larga por meio de um driver de software personalizado desenvolvido por Steve Markgraf. Os drivers do RTL-SDR foram desenvolvidos pela Osmocom via Open Collective (fundos levantados de doação).<a href="#fnref4" class="footnote-back">↩︎</a></p></li>
+<li id="fn5"><p>Dongle: pequeno dispositivo que pode ser conectado e usado em um computador permitindo acesso à banda larga sem fio, ou uso de software protegido.<a href="#fnref5" class="footnote-back">↩︎</a></p></li>
+</ol>
+</div>
+<div class="edit-meta">
+Last updated on 13 May 2020
+
+
+<br>
+Published on 13 May 2020
+<br><a href="https://github.com/thingsym/hugo-theme-techdoc/edit/master/content/networks/protocols/lora/lora.pt.html" class="edit-page"><i class="fas fa-pen-square"></i> Edit on GitHub</a></div><nav class="pagination"><a class="nav nav-prev" href="/pt/networks/protocols/ieee80211ah/usrp2932/" title="IEEE 802.11ah"><i class="fas fa-arrow-left" aria-hidden="true"></i> Prev - IEEE 802.11ah</a>
+<a class="nav nav-next" href="/pt/adddocumentation/" title="Adicionando posts no site">Next - Adicionando posts no site <i class="fas fa-arrow-right" aria-hidden="true"></i></a>
+</nav><footer><p class="powered">Powered by <a href="https://gohugo.io">Hugo</a>. Theme by <a href="https://themes.gohugo.io/hugo-theme-techdoc/">TechDoc</a>. Designed by <a href="https://github.com/thingsym/hugo-theme-techdoc">Thingsym</a>.</p>
+</footer>
+</main><div class="sidebar">
+
+<nav class="slide-menu">
+<ul>
+<li class=""><a href="/"></a></li>
+
+<li class=" has-sub-menu"><a href="/pt/gnuradio/"> 1 GNURadio<span class="mark closed">+</span></a>
+  
+<ul class="sub-menu">
+<li class=""><a href="/pt/gnuradio/installation/installation/">  1.1 Instalação</a></li>
+<li class=""><a href="/pt/gnuradio/introdutcion/introduction/">  1.2 Introdução</a></li>
+<li class=""><a href="/pt/gnuradio/tutorialoot/tutorialoot/">  1.3 Tutorial Criação de módulos OOT (out-of-tree)</a></li>
+<li class=""><a href="/pt/gnuradio/tutorialadsb/tutorialadsb/">  1.4 Tutorial Instalação de bloco ADSB</a></li>
+</ul>
+  
+</li>
+
+<li class=" has-sub-menu"><a href="/pt/sdr/"> 2 Software Defined Radio - SDR<span class="mark closed">+</span></a>
+  
+<ul class="sub-menu">
+
+<li class=" has-sub-menu"><a href="/pt/sdr/usrp2932/"> 2.1 USRP 2932<span class="mark closed">+</span></a>
+  
+<ul class="sub-menu">
+<li class=""><a href="/pt/sdr/usrp2932/introduction/usrp2932/">  2.1.1 Introducao</a></li>
+<li class=""><a href="/pt/sdr/usrp2932/configuration/usrp2932/">  2.1.2 Configuracao</a></li>
+</ul>
+  
+</li>
+
+<li class=" has-sub-menu"><a href="/pt/sdr/limesdr/"> 2.2 Lime - SDR<span class="mark closed">+</span></a>
+  
+<ul class="sub-menu">
+<li class=""><a href="/pt/sdr/limesdr/introduction/usrp2932/">  2.2.1 Introducao</a></li>
+</ul>
+  
+</li>
+
+<li class=" has-sub-menu"><a href="/pt/sdr/usrpdongle/"> 2.3 USRP - Dongle<span class="mark closed">+</span></a>
+  
+<ul class="sub-menu">
+<li class=""><a href="/pt/sdr/usrpdongle/introduction/usrp2932/">  2.3.1 Introducao</a></li>
+</ul>
+  
+</li>
+</ul>
+  
+</li>
+
+<li class="parent has-sub-menu"><a href="/pt/networks/"> 3 Redes<span class="mark opened">-</span></a>
+  
+<ul class="sub-menu">
+
+<li class="parent has-sub-menu"><a href="/pt/networks/protocols/"> 3.1 Protocolos<span class="mark opened">-</span></a>
+  
+<ul class="sub-menu">
+<li class=""><a href="/pt/networks/protocols/ieee80211ah/usrp2932/">  3.1.1 IEEE 802.11ah</a></li>
+<li class="active"><a href="/pt/networks/protocols/lora/usrp2932/">  3.2.1 LORA</a></li>
+</ul>
+  
+</li>
+</ul>
+  
+</li>
+
+<li class=""><a href="/pt/adddocumentation/"> 4 Adicionando posts no site</a>
+  
+</li>
+
+<li class=" has-sub-menu"><a href="/pt/sample/">  Exemplos de arquivos<span class="mark closed">+</span></a>
+  
+<ul class="sub-menu">
+<li class=""><a href="/pt/sample/search-shortcode/">   Shortcodes de busca</a></li>
+</ul>
+  
+</li>
+
+
+</ul>
+</nav>
+
+
+
+<div class="sidebar-footer">
+
+
+
+</div>
+</div>
+</div><a href="#" id="backtothetop-fixed" class="backtothetop"
+ data-backtothetop-duration="600"
+ data-backtothetop-easing="easeOutQuart"
+ data-backtothetop-fixed-fadeIn="1000"
+ data-backtothetop-fixed-fadeOut="1000"
+ data-backtothetop-fixed-bottom="10"
+ data-backtothetop-fixed-right="20">
+<span class="fa-layers fa-fw">
+<i class="fas fa-circle"></i>
+<i class="fas fa-arrow-circle-up"></i>
+</span></a>
+</div>
+</body>
+</html>

@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Tags on Laboratório de Redes e Telecom LACOM  -  UFRGS</title>
+    <link>/pt/tags/</link>
+    <description>Recent content in Tags on Laboratório de Redes e Telecom LACOM  -  UFRGS</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Fri, 15 May 2020 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="/pt/tags/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>ADSB</title>
+      <link>/pt/tags/adsb/</link>
+      <pubDate>Fri, 15 May 2020 00:00:00 +0000</pubDate>
+      
+      <guid>/pt/tags/adsb/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>gnuradio</title>
+      <link>/pt/tags/gnuradio/</link>
+      <pubDate>Fri, 15 May 2020 00:00:00 +0000</pubDate>
+      
+      <guid>/pt/tags/gnuradio/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>OOT</title>
+      <link>/pt/tags/oot/</link>
+      <pubDate>Fri, 15 May 2020 00:00:00 +0000</pubDate>
+      
+      <guid>/pt/tags/oot/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>tutorial</title>
+      <link>/pt/tags/tutorial/</link>
+      <pubDate>Fri, 15 May 2020 00:00:00 +0000</pubDate>
+      
+      <guid>/pt/tags/tutorial/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>out-of-tree</title>
+      <link>/pt/tags/out-of-tree/</link>
+      <pubDate>Thu, 14 May 2020 00:00:00 +0000</pubDate>
+      
+      <guid>/pt/tags/out-of-tree/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>tutorial OOT</title>
+      <link>/pt/tags/tutorial-oot/</link>
+      <pubDate>Thu, 14 May 2020 00:00:00 +0000</pubDate>
+      
+      <guid>/pt/tags/tutorial-oot/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>introduction</title>
+      <link>/pt/tags/introduction/</link>
+      <pubDate>Wed, 13 May 2020 00:00:00 +0000</pubDate>
+      
+      <guid>/pt/tags/introduction/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>introduçao</title>
+      <link>/pt/tags/introdu%C3%A7ao/</link>
+      <pubDate>Wed, 13 May 2020 00:00:00 +0000</pubDate>
+      
+      <guid>/pt/tags/introdu%C3%A7ao/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>signal</title>
+      <link>/pt/tags/signal/</link>
+      <pubDate>Wed, 13 May 2020 00:00:00 +0000</pubDate>
+      
+      <guid>/pt/tags/signal/</guid>
+      <description></description>
+    </item>
+    
+  </channel>
+</rss>

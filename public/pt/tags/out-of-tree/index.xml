@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>out-of-tree on Laboratório de Redes e Telecom LACOM  -  UFRGS</title>
+    <link>/pt/tags/out-of-tree/</link>
+    <description>Recent content in out-of-tree on Laboratório de Redes e Telecom LACOM  -  UFRGS</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Thu, 14 May 2020 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="/pt/tags/out-of-tree/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Tutorial Criação de módulos OOT (out-of-tree)</title>
+      <link>/pt/gnuradio/tutorialoot/tutorialoot/</link>
+      <pubDate>Thu, 14 May 2020 00:00:00 +0000</pubDate>
+      
+      <guid>/pt/gnuradio/tutorialoot/tutorialoot/</guid>
+      <description>Informações relevantes:  Módulo: conjunto de blocos Ex. spectral estimation toolbox. CGRAM: Comprehensive GNU Radio Archive Network. Base de dados dos módulo OOT. Link: CGRAM. Instalação de Módulos OOT do CGRAM: seguir o tutorial Configuring OOT Projects gr_modtool: ferramenta utilizada para criação de módulos OOT, vem instalada com o GR38 e é utilizada com comandos: Ex. $ gr_modtool add ... Tutoriais Sugeridos:   block coding guide: O mais importante recurso para desenvolvedores de OOTs - guia de programaçao de blocos.</description>
+    </item>
+    
+  </channel>
+</rss>

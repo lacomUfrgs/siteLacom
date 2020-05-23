@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Exemplos de arquivos on Laboratório de Redes e Telecom LACOM  -  UFRGS</title>
+    <link>/pt/sample/</link>
+    <description>Recent content in Exemplos de arquivos on Laboratório de Redes e Telecom LACOM  -  UFRGS</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Tue, 17 Oct 2017 15:26:15 +0000</lastBuildDate>
+    
+	<atom:link href="/pt/sample/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Shortcodes de busca</title>
+      <link>/pt/sample/search-shortcode/</link>
+      <pubDate>Mon, 30 Mar 2020 18:49:06 +0000</pubDate>
+      
+      <guid>/pt/sample/search-shortcode/</guid>
+      <description>Note Busca por Shortcode desenvolvido por Algolia
+você pode criar uma página de busca simplesmente adicionando shorcodes de pesquisa You can create a search page just by adding search shortcode.
+          var search = instantsearch({ indexName: &#39;hugo-demo-techdoc&#39;, searchClient: algoliasearch( &#39;7W4SAN4PLK&#39;, &#39;cbf12a63ff72d9c5dc0c10c195cf9128&#39; ), routing: true, }); const renderHits = (renderOptions, isFirstRender) = { const { hits } = renderOptions; document.querySelector(&#39;#hits&#39;).innerHTML = ` ${hits .</description>
+    </item>
+    
+  </channel>
+</rss>

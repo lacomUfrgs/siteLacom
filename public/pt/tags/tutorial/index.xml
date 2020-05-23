@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>tutorial on Laboratório de Redes e Telecom LACOM  -  UFRGS</title>
+    <link>/pt/tags/tutorial/</link>
+    <description>Recent content in tutorial on Laboratório de Redes e Telecom LACOM  -  UFRGS</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Fri, 15 May 2020 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="/pt/tags/tutorial/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Tutorial Instalação de bloco ADSB</title>
+      <link>/pt/gnuradio/tutorialadsb/tutorialadsb/</link>
+      <pubDate>Fri, 15 May 2020 00:00:00 +0000</pubDate>
+      
+      <guid>/pt/gnuradio/tutorialadsb/tutorialadsb/</guid>
+      <description>Este tutorial visa ajudar na instalação do bloco OOT de transmissão contínua de pacotes ADSB. Estes pacotes correspondem à mensagens de duas aeronaves localizadas em localizações distintas (Filipinas e Itália). Ao extrair os arquivos deste tutorial, você verá uma pasta chamada de ADSBInstalacao. Nesta pasta estão contidos os seguintes arquivos :
+ README.md - arquivo deste tutorial.
+ installADSB.sh - Script de instalação direta do módulo.
+ uninstallADSB.sh - Script de deinstalação direta do módulo.</description>
+    </item>
+    
+  </channel>
+</rss>

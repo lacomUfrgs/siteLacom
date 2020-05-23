@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Protocols on Networks and Telecommunication Lab LACOM  -  UFRGS</title>
+    <link>/networks/protocols/</link>
+    <description>Recent content in Protocols on Networks and Telecommunication Lab LACOM  -  UFRGS</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Tue, 17 Oct 2017 15:26:15 +0000</lastBuildDate>
+    
+	<atom:link href="/networks/protocols/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>IEEE 802.11ah</title>
+      <link>/networks/protocols/ieee80211ah/introduction/</link>
+      <pubDate>Wed, 13 May 2020 00:00:00 +0000</pubDate>
+      
+      <guid>/networks/protocols/ieee80211ah/introduction/</guid>
+      <description>Introdução ao GNURadio e Radio definido por software  1.1 O que é o GNURadio Gnuradio é um Framework1 que possibilita projetar, simular e implantar sistemas de rádios (de alta capacidade) do mundo real. O Gnuradio utiliza linguagem de fluxogramas, é modular, e vem com uma biblioteca abrangente de blocos de processamento, que podem ser facilmente combinados para criar aplicações complexas de processamento de sinais. O Gnuradio tem sido usado para uma enorme variedade de aplicações de rádio no mundo real.</description>
+    </item>
+    
+    <item>
+      <title>Lora</title>
+      <link>/networks/protocols/lora/introduction/</link>
+      <pubDate>Wed, 13 May 2020 00:00:00 +0000</pubDate>
+      
+      <guid>/networks/protocols/lora/introduction/</guid>
+      <description>Introdução ao GNURadio e Radio definido por software  1.1 O que é o GNURadio Gnuradio é um Framework1 que possibilita projetar, simular e implantar sistemas de rádios (de alta capacidade) do mundo real. O Gnuradio utiliza linguagem de fluxogramas, é modular, e vem com uma biblioteca abrangente de blocos de processamento, que podem ser facilmente combinados para criar aplicações complexas de processamento de sinais. O Gnuradio tem sido usado para uma enorme variedade de aplicações de rádio no mundo real.</description>
+    </item>
+    
+  </channel>
+</rss>

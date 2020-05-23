@@ -1,0 +1,217 @@
+---
+title: "Introducao"
+author: "UFRGS LACOM"
+weight: 211
+pgIdentifier: 2.1.1
+date: '2020-05-13'
+#menu: main
+output:
+  word_document:
+    toc: yes
+  pdf_document:
+    keep_tex: yes
+  html_document:
+    highlight: tango
+    theme: cosmo
+    toc: yes
+description: ' THIS IS THE DESCRIPTION'
+keywords:
+- Gnuradio
+- Introdução
+- Sinal
+lastmod: '2020-05-13T22:26:05-03:00'
+categories:
+- Development
+- golang
+publishdate: '2020-05-13T22:26:05-03:00'
+slug: usrp2932
+tags:
+- gnuradio
+- introduction
+- signal
+- introduçao
+abstract: "This article ... versão _release_ do  GNURadio v.3.8.1.0.  \n"
+---
+
+## Introdução ao GNURadio e Radio definido por software
+***
+
+## 1.1  O que é o GNURadio
+
+***
+ Gnuradio é um  [Framework][framework][^1] que possibilita projetar,  simular e implantar sistemas de rádios (de alta capacidade) do mundo real. O Gnuradio utiliza linguagem de fluxogramas, é modular, e vem com uma biblioteca abrangente de blocos de processamento, que podem ser facilmente combinados para criar aplicações complexas de processamento de sinais.
+ O Gnuradio tem sido usado para uma enorme variedade de aplicações de rádio no mundo real. incluindo  processamento de áudio, comunicações móveis (_mobile communications_), rastreamento de satélites, sistemas de radar. redes GSM, [Digital Radio Mondiale][mondiale] [^2], e muito mais -  todos implementados via software.
+ O Gnuradio não é uma soluçã para comunicaçã  para qualquer rádio específico, também não fornece aplicativos para padroes específicos de comunicaçã de rádio( por exemplo 802.11, ZigBee, LTE, etc), mas pode ser usado para desenvolver implementações de basicamente qualquer padrão de comunicação de banda limitada.
+
+## 1.2 Por que utilizar o GNURadio
+
+***
+Anteriormente, para desenvolver dispositivos de comunicação, o engenheiro desenvolvia um circuito específico para detecçã de uma  classe de sinais específica, desenvolvia um circuito integrado também específico capaz de decodificar ou codificar esta transmissão  e [depurava][depuracao][^3], usando equipamentos caros.
+
+Radio definido por Software (Software-defined Radio - SDR), pega o processamento do sinal analógico e  o move, na medida do possível física e economicamente, para processar o sinal de radio em um computador usando algoritmos e software.
+
+É possível usar um dispositivo de radio conectado ao computador e ir escrevendo cd programas do zero, concatenando algoritmos conforme a necessidade e mover/monitorar a entrada e saída de dados.  Mas fazer isso pode se tornar complicado. Por quê reimplementar um filtro pafdrão? Por quê preocupar-se em como os dados irão se mover entre os diferentes blocos de processamento? Nao seria melhor utilizar implementações otimizadas e revisadas que reescrever, toda vez que for usar, estes blocos? E como tornar nossa implementação escalonável  em arquiteturas multi-core e como fazer com que elas rodem em um  dispositivo embarcado que consuma poucos watts de potência? Você realmente gostaria de programar todas as interfaces GUI?
+
+O Gnuradio é um framework dedicado a escrita de aplicações de processamento de sinais com um computador comum. Gnuradio desenvolve funcionalidades que sao aplicadas através de blocos fáceis de utilizar e reutilizar. Ele oferece exelente escalabilidade, dispoe de uma biblioteca extensa de algoritmos, e é altamente otimizado para uma ampla variedade de plataformas. O Gnuradio também possui um extenso conjunto de exemplos para você começar.
+
+## 1.3  Sinal Digital
+
+***
+O Gnuradio trabalha com sinais digitalizados para gerar funções de comunicação  utilizando para isso computadores de uso comum.
+
+## 1.3.1  Um pouco sobre a teoria do sinal
+
+***
+
+O processamento de sinais com software requer que o sinal seja digital.
+Mas o que seria um sinal digital?
+Para entender melhor, vamos analisar o seguinte cenário: imagine a gravação da voz para transmissão usando um celular.
+Neste cenário, uma pessoa falando cria um sinal sonoro - o sinal, nesse caso, é composto por ondas de pressão de ar variável geradas pelas cordas vocais de um ser humano. Uma quantidade física variável no tempo, como a pressão do ar, é o que é definido como sinal.
+
+![](/gnuradio/introduction.pt_files/Sound_vocal.png "Air Pressure")
+
+
+
+![](/gnuradio/introduction.pt_files/P_to_u.png "Digital Wave")
+
+Quando as ondas chegam ao microfone, ele converte a vairação de pressão do ar em um sinal elétrico, uma tensão variável.
+
+
+
+
+Agora, como o sinal é elétrico, podemos trabalhar com ele. O sinal de áudio, neste ponto é analógico - um computador ainda nao consegue trabalhar com ele. Para fins de processamento computacional um sinal deve ser digital, o que significa duas coisas:
+- Ele pode possuir apenas um valor em um limitado número de valores possíveis
+- Ele pode existir apenas em um intervalor de tempo não infinito.
+
+<center>
+
+![](/gnuradio/introduction.pt_files/Cont_to_digital.png  "AD conversion")
+
+</center>
+
+
+## 1.3.2  Applicando processamento de sinais digitais em transmissões de rádio
+
+***
+Os mesmos princípios considerados para os sons podem ser aplicados em ondas de rádio.
+
+Em ondas de rádio, um sinal (ondas eletromagnéticas), pode ser convertido em tensão variável usando uma antena.
+
+<center>
+
+![](/gnuradio/introduction.pt_files/Antenna.png  "Antenna")
+
+</center>
+
+Este sinal elétrico que está em uma frequência da portadora,  que geralmente é de vários Mega ou mesmo Gigahertz.
+
+Tipos diferentes de receptores, (p. ex. Receptores Superheteródinos, Conversao Direta, Receptores de frequência Intermediária Baixa), que podema ser adquiridos comercialmente como periféricos de rádio de software dedicados. Estes dispositivos já estão disponíveis para os usuários, (por exemplo, receptores de rádio amador conectados a placas de som),  ou podem ser obtidos a partir de receptores digitais de TV reconfigurados, como o notório projeto [RTL-SDR][rtl] [^4] dongle [^5].
+
+## 1.4 Uma abordagem modular baseada em fluxograma para processamento de sinal digital
+
+***
+Para processar sinais digitais é necessário pensar nos estágios de processamento individual ( filtragem, correção, análise, detecção...) como bloco de processamento, que podem ser interconectados usando um simples indicador de fluxo com setas:
+
+<center>
+
+![](/gnuradio/introduction.pt_files/Twoblocks_arrow.png  "Blocks")
+
+</center>
+
+
+Quando uma aplicação de processamento de sinais é construída ela é  representada em um gráfico completo composto por blocos de processamento.
+Este tipo de gráfico é chamado de "flowgraph" no GNURadio.
+
+<center>
+
+![](/gnuradio/introduction.pt_files/Example_flowgraph.png  "Flowgraph")
+
+</center>
+
+O GNURadio é um framework para desenvolver estes blocos de processamento e criar _flowgraphs_, que compõem as aplicações de processamento de sisnais de rádio.
+Pode-se combinar blocos existentes em um fluxograma de alto nível que faça algo tão complexo quanto receber sinais modulados digitalmente. O GNU Radio moverá os sinais de entrada automaticamente entre os blocos, fazendo com que os sinais sejam processados, quando estes estiverem prontos para isso.
+O GNU Radio é composto de um grande conjunto de blocos existentes. Apenas para se ter uma idéia do que está disponível em uma instalação padrão, apresentamos  algumas das categorias de blocos mais populares e alguns de seus membros:
+
+- Waveform Generators
+  - Constant Source
+  - Noise Source
+  - Signal Source (e.g. Sine, Square, Saw Tooth)
+- Modulators
+- AM Demod
+  - Continuous Phase Modulation
+  - PSK Mod / Demod
+  - GFSK Mod / Demod
+  - GMSK Mod / Demod
+  - QAM Mod / Demod
+  - WBFM Receiv
+  - NBFM eceie
+- Instrumention (i.e., GUIs)
+  - Conselation Sink
+  - Freqncy Sink
+  - Historam Sink
+  - Nuber Sink
+  - Tie Raster Sink
+  - Tie Sink
+  - Warfall Sink
+- Mathperators
+  - Ab
+  - Add
+  - Complex Conjugate
+  - Divide
+  - Integrate
+  - Log10
+  - Multiply
+  - RMS
+  - Subtract
+- Channel Models
+  - Channel Model
+  - Fading Model
+  - Dynamic Channel Model
+  - Frequency Selective Fading Model
+  - Filters
+  - Band Pass / Reject Filter
+  - Low / High Pass Filter
+  - IIR Filter
+  - Generic Filterbank
+  - Hilbert
+  - Decimating FIR Filter
+  - Root Raised Cosine Filter
+  - FFT Filter
+- Fourier Analysis
+  - FFT
+  - Log Power FFT
+  - Goertzel (Resamplers)
+  - Fractional Resampler
+  - Polyphase Arbitrary Resampler
+  - Rational Resampler (Synchronizers)
+  - Clock Recovery MM
+  - Correlate and Sync
+  - Costas Loop
+  - FLL Band-Edge
+  - PLL Freq Det
+  - PN Correlator
+  - Polyphase Clock Sync
+
+Usando esses blocos, muitas tarefas usuais, como normalizar sinais, sincronização, medições e visualização, podem ser realizadas apenas conectando o bloco apropriado ao seu gráfico de fluxo de processamento de sinal.
+
+Além disso, você pode escrever seus próprios blocos, adicionar aos blocos existentes com alguma inteligência para fornecer nova funcionalidade, ou você pode desenvolver seu próprio bloco que opera nos dados de entrada, processa  e gera dados de saída.
+
+Assim, pode-se dizer que o  GNURadio é uma framework, uma estrutura  para o desenvolvimento de blocos de processamento de sinal e sua interação. Ele vem com uma extensa biblioteca de blocos e existem muitos sistemas disponíveis nos quais um desenvolvedor pode se basear. No entanto, o GNU Radio em si não é um software pronto para fazer algo específico - é o trabalho do usuário criar algo útil a partir dele, embora já venha com muitos exemplos úteis de trabalho. Pense nisso como um conjunto de blocos de construção.
+
+[atalho]:<http://168.232.237.183/index1.html>
+[framework]: <https://tableless.github.io/iniciantes/manual/js/o-que-framework.html>
+[mondiale]:<https://en.wikipedia.org/wiki/Digital_Radio_Mondiale>
+[depuracao]:<https://pt.wikipedia.org/wiki/Depura%C3%A7%C3%A3o>
+[rtl]:<https://www.rtl-sdr.com/about-rtl-sdr/> 
+
+[^1]: Framework - usa a idéia de reusabilidade - e se trata de um conjunto de bibliotecas ou componentes que sao usados para criar uma base onde a aplicaçã será constuída.
+
+[^2]: Digital Radio Mondiale - DRM- é um conjunto de tecnologias de transmissao digital de áudio desenvolvidas para trabalharem nas bandas de  frequencia de rádios usadas atualmente para transmissao analógica AM e FM.
+
+[^3]: Depuração  - do ingles _debug_ -  é o processo de encontrar e reduzir defeitos num aplicativo de software ou mesmo em hardware.
+
+[^4]: O RTL-SDR é um dispositivo de rádio USB muito barato ~ R$ 100,00  que pode ser usado como um scanner de rádio, com base no computador, para receber sinais de rádio  em tempo real (ao vivo) em sua área (sem necessidade de internet). Dependendo do modelo específico, ele pode receber frequências de 500 kHz a 1,75 GHz. A maioria dos softwares para o RTL-SDR também é desenvolvida pela comunidade e fornecida gratuitamente.  As origens do RTL-SDR decorrem de dongles  sintonizadores de TV DVB-T produzidos em massa, baseados no chipset RTL2832U. Com os esforços combinados de Antti Palosaari, Eric Fry e Osmocom (em particular Steve Markgraf), verificou-se que os dados brutos de I/Q no chipset RTL2832U podiam ser acessados diretamente, o que permitiu que o sintonizador de TV DVB-T fosse convertido em um rádio definido por software de banda larga por meio de um driver de software personalizado desenvolvido por Steve Markgraf. Os drivers do RTL-SDR foram desenvolvidos pela Osmocom via Open Collective (fundos levantados de doação).
+  
+[^5]: Dongle: pequeno dispositivo que pode ser conectado e usado em um computador permitindo acesso à banda larga sem fio, ou uso de software protegido.
+
+- [Tutorial 00T][atalho]

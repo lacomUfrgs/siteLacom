@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html>
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<title>Instalação - Laboratório de Redes e Telecom LACOM  -  UFRGS</title>
+<meta name="description" content="Repositório de Documentos Técnicos">
+<meta name="generator" content="Hugo 0.70.0" />
+<link href="/index.xml" rel="alternate" type="application/rss+xml">
+<link rel="canonical" href="/pt/gnuradio/installation/installation/">
+<link rel="stylesheet" href="/css/theme.min.css">
+<script src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
+<link rel="stylesheet" href="/css/chroma.min.css">
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.4.1/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery.easing@1.4.1/jquery.easing.min.js"></script>
+<script src="/js/bundle.js"></script><style>
+:root {}
+</style>
+<meta property="og:title" content="Instalação" />
+<meta property="og:description" content="Existem algumas formas de instalar o gnuradio… aThere are some ways to install GNURadio such as Binary, from source or PyBOMBS installation. The recommended way depends on plataform and purpose. This turorial provides some commands to install GNURadio with PyBOMBS (Python Build Overlay Managed Bundle System).
+PyBOMBS is the GNURadio install management system for resolving dependencies and pulling in out-of-tree projects. Based on PyBOMBS README, this document offers two versions of GNURadio installation:" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="/pt/gnuradio/installation/installation/" />
+<meta property="og:image" content="/images/og-image.png"/>
+<meta property="article:published_time" content="2020-05-23T00:00:00+00:00" />
+<meta property="article:modified_time" content="2020-05-23T00:00:00+00:00" /><meta property="og:site_name" content="Laboratório de Redes e Telecom LACOM  -  UFRGS" />
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="/images/og-image.png"/>
+
+<meta name="twitter:title" content="Instalação"/>
+<meta name="twitter:description" content="Existem algumas formas de instalar o gnuradio… aThere are some ways to install GNURadio such as Binary, from source or PyBOMBS installation. The recommended way depends on plataform and purpose. This turorial provides some commands to install GNURadio with PyBOMBS (Python Build Overlay Managed Bundle System).
+PyBOMBS is the GNURadio install management system for resolving dependencies and pulling in out-of-tree projects. Based on PyBOMBS README, this document offers two versions of GNURadio installation:"/>
+<meta itemprop="name" content="Instalação">
+<meta itemprop="description" content="Existem algumas formas de instalar o gnuradio… aThere are some ways to install GNURadio such as Binary, from source or PyBOMBS installation. The recommended way depends on plataform and purpose. This turorial provides some commands to install GNURadio with PyBOMBS (Python Build Overlay Managed Bundle System).
+PyBOMBS is the GNURadio install management system for resolving dependencies and pulling in out-of-tree projects. Based on PyBOMBS README, this document offers two versions of GNURadio installation:">
+<meta itemprop="datePublished" content="2020-05-23T00:00:00&#43;00:00" />
+<meta itemprop="dateModified" content="2020-05-23T00:00:00&#43;00:00" />
+<meta itemprop="wordCount" content="326">
+<meta itemprop="image" content="/images/og-image.png"/>
+
+
+
+<meta itemprop="keywords" content="" /> 
+
+
+</head>
+<body><div class="container"><header>
+<h1>Laboratório de Redes e Telecom LACOM  -  UFRGS</h1>
+<a href="https://github.com/thingsym/hugo-theme-techdoc" class="github"><i class="fab fa-github"></i></a>
+
+
+
+<p class="description"> Repositório de Documentos Técnicos  &nbsp;&nbsp;
+    
+        
+            
+                <a href="/gnuradio/installation/installation/"><i>[english]</i></a>
+            
+</p>
+        
+    
+
+
+</header>
+<div class="global-menu">
+<nav>
+<ul>
+<li><a href="/pt/home-pt/">Home</a></li>
+<li><a href="https://twitter.com/thingsym">Twitter</a></li><li class="parent"><a href="">Tutoriais<i class="fas fa-angle-right"></i></a>
+<ul class="sub-menu">
+<li class="child"><a href="/pt/post/creating-a-new-theme/">Criando um novo tema</a></li>
+<li class="child"><a href="/pt/post/migrate-from-jekyll/">Migrando do Jekyll para o Hugo</a></li>
+</ul>
+</li></ul>
+</nav>
+</div>
+
+
+<div class="content-container">
+<main><h1>Instalação</h1>
+
+<script src="/rmarkdown-libs/header-attrs/header-attrs.js"></script>
+
+
+<p>Existem algumas formas de instalar o gnuradio… aThere are some ways to install <a href="https://www.gnuradio.org/">GNURadio</a> such as <em>Binary</em>, <em>from source</em> or <em>PyBOMBS</em> installation.
+The recommended way depends on plataform and purpose. This turorial provides some commands to install GNURadio with <em>PyBOMBS</em> (Python Build Overlay Managed Bundle System).</p>
+<p><em>PyBOMBS</em> is the GNURadio install management system for resolving dependencies and pulling in out-of-tree projects. Based on <a href="https://github.com/gnuradio/pybombs">PyBOMBS README</a>, this document offers two versions of GNURadio installation:</p>
+<ul>
+<li><strong>gnuradio-stable</strong> : version 3.8, latest release, uses <em><code>pip3</code></em> and <code>Python3</code> version</li>
+<li><strong>gnuradio-default</strong> : version 3.7 latest stable version, uses <em><code>pip</code></em> and <code>Python2.7</code></li>
+</ul>
+<div id="install-gnuradio-dependences-gnu-radio-version-3.8.x-with-python-3-support" class="section level4">
+<h4>1. Install GNURadio dependences GNU Radio version 3.8.x with Python 3 support:</h4>
+<pre><code>sudo apt install git cmake g++ libboost-all-dev libgmp-dev swig python3-numpy \
+python3-mako python3-sphinx python3-lxml doxygen libfftw3-dev \
+libsdl1.2-dev libgsl-dev libqwt-qt5-dev libqt5opengl5-dev python3-pyqt5 \
+liblog4cpp5-dev libzmq3-dev python3-yaml python3-click python3-click-plugins \
+python3-zmq python3-scipy 
+</code></pre>
+</div>
+<div id="install-git-other-dependences-python-3-and-pip3" class="section level4">
+<h4>2. Install git, other dependences python-3 and pip3:</h4>
+<pre><code>sudo apt install git
+sudo apt-get update
+sudo apt-get install libboost-all-dev libusb-1.0-0-dev python-mako doxygen python-docutils cmake build-essential
+sudo apt install python3
+sudo apt install python3-pip</code></pre>
+</div>
+<div id="install-pybombs" class="section level4">
+<h4>3. Install PYBOMBS:</h4>
+<pre><code>sudo pip3 install --force-reinstall  --no-cache-dir --upgrade git+https://github.com/gnuradio/pybombs.git</code></pre>
+</div>
+<div id="configure-pybombs" class="section level4">
+<h4>4. Configure Pybombs:</h4>
+<pre><code>pybombs recipes --no-cache  add-defaults
+pybombs recipes -v  add-defaults</code></pre>
+</div>
+<div id="setting-up-a-base-folder-to-install-gnuradio" class="section level4">
+<h4>5. Setting up a base folder to install GnuRadio:</h4>
+<pre><code>cd ~
+mkdir prefix  prefix/GNURADIO</code></pre>
+</div>
+<div id="change-pybombs-config-file" class="section level4">
+<h4>6. Change pybombs config file :</h4>
+<pre><code>sudo gedit ~/.pybombs/config.yml </code></pre>
+<p>Replace the code by:</p>
+<pre><code>!!omap
+- config:
+    git-cache: ~/.pybombs/gitcache
+    elevate_pre_args:
+    - sudo
+    - -H
+    makewidth: 4
+    packagers: apt,pymod,pip,pkgconfig,cmd
+    default_prefix: ~/prefix/GNURADIO
+- recipes:
+    gr-etcetera: git+https://github.com/gnuradio/gr-etcetera.git
+    gr-recipes: git+https://github.com/gnuradio/gr-recipes.git</code></pre>
+<p>Save this file (ctrl+s).
+#### 7. Then, specify the config file to be used in this installation:</p>
+<pre><code>pybombs auto-config -c  ~/.pybombs/config.yml</code></pre>
+</div>
+<div id="and-finally-install" class="section level4">
+<h4>8. And finally install:</h4>
+<pre><code>pybombs -vv prefix init ~/prefix/GNURADIO -R gnuradio-default</code></pre>
+<p>It will take some hours…
+#### 9. After a successful installation, adjust PATH config file (setup_env.sh) in order to prevent a reference error.</p>
+<pre><code>cd ~/prefix/GNURADIO/
+sudo gedit setup_env.sh</code></pre>
+<p>Add this path: “~/prefix/GNURADIO/lib/python3/dist-packages” to PYTHONPATH:</p>
+<pre><code>export PYTHONPATH=&quot;~/prefix/GNURADIO/lib/python3/dist-packages:...blabla&quot;</code></pre>
+<p>As explained here by gareth8118 <a href="https://github.com/gnuradio/pybombs/issues/553" class="uri">https://github.com/gnuradio/pybombs/issues/553</a>
+Save file
+#### 10. And finally run GnuRadio:</p>
+<pre><code>source setup_env.sh 
+gnuradio-companion </code></pre>
+</div>
+<div class="edit-meta">
+Last updated on 23 May 2020
+
+
+<br>
+Published on 23 May 2020
+<br><a href="https://github.com/thingsym/hugo-theme-techdoc/edit/master/content/gnuradio/installation/installation.pt.html" class="edit-page"><i class="fas fa-pen-square"></i> Edit on GitHub</a></div><nav class="pagination"><a class="nav nav-prev" href="/pt/gnuradio/" title="GNURadio"><i class="fas fa-arrow-left" aria-hidden="true"></i> Prev - GNURadio</a>
+<a class="nav nav-next" href="/pt/gnuradio/introdutcion/introduction/" title="Introdução">Next - Introdução <i class="fas fa-arrow-right" aria-hidden="true"></i></a>
+</nav><footer><p class="powered">Powered by <a href="https://gohugo.io">Hugo</a>. Theme by <a href="https://themes.gohugo.io/hugo-theme-techdoc/">TechDoc</a>. Designed by <a href="https://github.com/thingsym/hugo-theme-techdoc">Thingsym</a>.</p>
+</footer>
+</main><div class="sidebar">
+
+<nav class="slide-menu">
+<ul>
+<li class=""><a href="/"></a></li>
+
+<li class="parent has-sub-menu"><a href="/pt/gnuradio/"> 1 GNURadio<span class="mark opened">-</span></a>
+  
+<ul class="sub-menu">
+<li class="active"><a href="/pt/gnuradio/installation/installation/">  1.1 Instalação</a></li>
+<li class=""><a href="/pt/gnuradio/introdutcion/introduction/">  1.2 Introdução</a></li>
+<li class=""><a href="/pt/gnuradio/tutorialoot/tutorialoot/">  1.3 Tutorial Criação de módulos OOT (out-of-tree)</a></li>
+<li class=""><a href="/pt/gnuradio/tutorialadsb/tutorialadsb/">  1.4 Tutorial Instalação de bloco ADSB</a></li>
+</ul>
+  
+</li>
+
+<li class=" has-sub-menu"><a href="/pt/sdr/"> 2 Software Defined Radio - SDR<span class="mark closed">+</span></a>
+  
+<ul class="sub-menu">
+
+<li class=" has-sub-menu"><a href="/pt/sdr/usrp2932/"> 2.1 USRP 2932<span class="mark closed">+</span></a>
+  
+<ul class="sub-menu">
+<li class=""><a href="/pt/sdr/usrp2932/introduction/usrp2932/">  2.1.1 Introducao</a></li>
+<li class=""><a href="/pt/sdr/usrp2932/configuration/usrp2932/">  2.1.2 Configuracao</a></li>
+</ul>
+  
+</li>
+
+<li class=" has-sub-menu"><a href="/pt/sdr/limesdr/"> 2.2 Lime - SDR<span class="mark closed">+</span></a>
+  
+<ul class="sub-menu">
+<li class=""><a href="/pt/sdr/limesdr/introduction/usrp2932/">  2.2.1 Introducao</a></li>
+</ul>
+  
+</li>
+
+<li class=" has-sub-menu"><a href="/pt/sdr/usrpdongle/"> 2.3 USRP - Dongle<span class="mark closed">+</span></a>
+  
+<ul class="sub-menu">
+<li class=""><a href="/pt/sdr/usrpdongle/introduction/usrp2932/">  2.3.1 Introducao</a></li>
+</ul>
+  
+</li>
+</ul>
+  
+</li>
+
+<li class=" has-sub-menu"><a href="/pt/networks/"> 3 Redes<span class="mark closed">+</span></a>
+  
+<ul class="sub-menu">
+
+<li class=" has-sub-menu"><a href="/pt/networks/protocols/"> 3.1 Protocolos<span class="mark closed">+</span></a>
+  
+<ul class="sub-menu">
+<li class=""><a href="/pt/networks/protocols/ieee80211ah/usrp2932/">  3.1.1 IEEE 802.11ah</a></li>
+<li class=""><a href="/pt/networks/protocols/lora/usrp2932/">  3.2.1 LORA</a></li>
+</ul>
+  
+</li>
+</ul>
+  
+</li>
+
+<li class=""><a href="/pt/adddocumentation/"> 4 Adicionando posts no site</a>
+  
+</li>
+
+<li class=" has-sub-menu"><a href="/pt/sample/">  Exemplos de arquivos<span class="mark closed">+</span></a>
+  
+<ul class="sub-menu">
+<li class=""><a href="/pt/sample/search-shortcode/">   Shortcodes de busca</a></li>
+</ul>
+  
+</li>
+
+
+</ul>
+</nav>
+
+
+
+<div class="sidebar-footer">
+
+
+
+</div>
+</div>
+</div><a href="#" id="backtothetop-fixed" class="backtothetop"
+ data-backtothetop-duration="600"
+ data-backtothetop-easing="easeOutQuart"
+ data-backtothetop-fixed-fadeIn="1000"
+ data-backtothetop-fixed-fadeOut="1000"
+ data-backtothetop-fixed-bottom="10"
+ data-backtothetop-fixed-right="20">
+<span class="fa-layers fa-fw">
+<i class="fas fa-circle"></i>
+<i class="fas fa-arrow-circle-up"></i>
+</span></a>
+</div>
+</body>
+</html>

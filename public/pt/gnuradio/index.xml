@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>GNURadio on Laboratório de Redes e Telecom LACOM  -  UFRGS</title>
+    <link>/pt/gnuradio/</link>
+    <description>Recent content in GNURadio on Laboratório de Redes e Telecom LACOM  -  UFRGS</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Tue, 17 Oct 2017 15:26:15 +0000</lastBuildDate>
+    
+	<atom:link href="/pt/gnuradio/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Instalação</title>
+      <link>/pt/gnuradio/installation/installation/</link>
+      <pubDate>Sat, 23 May 2020 00:00:00 +0000</pubDate>
+      
+      <guid>/pt/gnuradio/installation/installation/</guid>
+      <description>Existem algumas formas de instalar o gnuradio… aThere are some ways to install GNURadio such as Binary, from source or PyBOMBS installation. The recommended way depends on plataform and purpose. This turorial provides some commands to install GNURadio with PyBOMBS (Python Build Overlay Managed Bundle System).
+PyBOMBS is the GNURadio install management system for resolving dependencies and pulling in out-of-tree projects. Based on PyBOMBS README, this document offers two versions of GNURadio installation:</description>
+    </item>
+    
+    <item>
+      <title>Introdução</title>
+      <link>/pt/gnuradio/introdutcion/introduction/</link>
+      <pubDate>Wed, 13 May 2020 00:00:00 +0000</pubDate>
+      
+      <guid>/pt/gnuradio/introdutcion/introduction/</guid>
+      <description>Introdução ao GNURadio e Radio definido por software  1.1 O que é o GNURadio Gnuradio é um Framework1 que possibilita projetar, simular e implantar sistemas de rádios (de alta capacidade) do mundo real. O Gnuradio utiliza linguagem de fluxogramas, é modular, e vem com uma biblioteca abrangente de blocos de processamento, que podem ser facilmente combinados para criar aplicações complexas de processamento de sinais. O Gnuradio tem sido usado para uma enorme variedade de aplicações de rádio no mundo real.</description>
+    </item>
+    
+    <item>
+      <title>Tutorial Criação de módulos OOT (out-of-tree)</title>
+      <link>/pt/gnuradio/tutorialoot/tutorialoot/</link>
+      <pubDate>Thu, 14 May 2020 00:00:00 +0000</pubDate>
+      
+      <guid>/pt/gnuradio/tutorialoot/tutorialoot/</guid>
+      <description>Informações relevantes:  Módulo: conjunto de blocos Ex. spectral estimation toolbox. CGRAM: Comprehensive GNU Radio Archive Network. Base de dados dos módulo OOT. Link: CGRAM. Instalação de Módulos OOT do CGRAM: seguir o tutorial Configuring OOT Projects gr_modtool: ferramenta utilizada para criação de módulos OOT, vem instalada com o GR38 e é utilizada com comandos: Ex. $ gr_modtool add ... Tutoriais Sugeridos:   block coding guide: O mais importante recurso para desenvolvedores de OOTs - guia de programaçao de blocos.</description>
+    </item>
+    
+    <item>
+      <title>Tutorial Instalação de bloco ADSB</title>
+      <link>/pt/gnuradio/tutorialadsb/tutorialadsb/</link>
+      <pubDate>Fri, 15 May 2020 00:00:00 +0000</pubDate>
+      
+      <guid>/pt/gnuradio/tutorialadsb/tutorialadsb/</guid>
+      <description>Este tutorial visa ajudar na instalação do bloco OOT de transmissão contínua de pacotes ADSB. Estes pacotes correspondem à mensagens de duas aeronaves localizadas em localizações distintas (Filipinas e Itália). Ao extrair os arquivos deste tutorial, você verá uma pasta chamada de ADSBInstalacao. Nesta pasta estão contidos os seguintes arquivos :
+ README.md - arquivo deste tutorial.
+ installADSB.sh - Script de instalação direta do módulo.
+ uninstallADSB.sh - Script de deinstalação direta do módulo.</description>
+    </item>
+    
+  </channel>
+</rss>

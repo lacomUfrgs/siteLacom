@@ -1,0 +1,36 @@
+---
+title:  Introdução
+author: UFRGS LASCAR
+date: '2020-05-13'
+slug: introduction
+categories: [gnuradio]
+tags:
+  - gnuradio
+  - introduction
+  - signal
+lastmod: '2020-05-13T22:26:05-03:00'
+publishdate: '2020-05-13T22:26:05-03:00'
+description: ' THIS IS THE DESCRIPTION'
+weight: 20
+keywords: [Gnuradio,  Introdução, Sinal]
+output: 
+  html_document:
+    theme: cosmo
+    highlight: tango
+#    css: styles.css
+#    includes:
+#      in_header: header.html
+#      before_body: beforeBody.html
+#      after_body: footer2.html
+    toc: true 
+ #   number_sections: true
+ #   toc_depth: 4
+#    fig_width: 7
+#    fig_height: 6
+#    fig_caption: true
+#    template:  ~/.local/share/pandoc/pandoc-templates/default.html5 
+  pdf_document:
+    keep_tex: true
+abstract: |
+   This article ... versão _release_ do  GNURadio v.3.8.1.0.  
+---
